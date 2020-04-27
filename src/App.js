@@ -9,9 +9,34 @@ class App extends React.Component {
   state = {scores: []}
 
   componentDidMount() {
-    console.log("Hello World!")
-    this.getArticles()
+    // console.log("Hello World!")
+    // this.getArticles()
+    // this.getNFLGames()
   }
+
+  onUnMount = () =< {
+    localStorage.removeItem("token")
+  }
+
+  componentWillUnmount() {
+    this.onUnMount()
+  }
+
+  getNFLGames() {
+    fetch('https://grant_type=client_credentials&client_id=mobile&client_secret=42', {
+      method: "POST",
+      mode: 'no-cors'
+    }).then(res => res.json())
+    .then(data => console.log(data))
+  }
+
+  // fetch(`${API_ROOT}/users`, {
+  //   method: "POST",
+  //   headers: headers(),
+  //   body: JSON.stringify({user: data})
+  // }).then(res => res.json());
+
+  // GET /games?s={"$query":{"week.season":2014,"week.seasonType":"REG","week.week":1}}
 
   getArticles() {
     api.articles.getArticle(3).then(data => this.setState({scores: data}))
