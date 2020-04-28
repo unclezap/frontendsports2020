@@ -1,15 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-// import { postArticles } from '../redux'
-
+import { postArticle } from '../redux'
 
 const INITIAL_STATE = {
     articles: [],
     submitted: false
 }
-
-
 
 class NewPredictionsForm extends React.Component {
     

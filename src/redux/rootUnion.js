@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import articleReducer from './article/articleReducer'
-import scoreReducer from './score/scoreReducer'
+import batchReducer from './batch/batchReducer'
 
 const rootReducer = combineReducers({
     article: articleReducer,
-    score: scoreReducer
+    batch: batchReducer
 })
 
 export default rootReducer

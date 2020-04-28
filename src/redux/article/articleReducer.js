@@ -1,28 +1,28 @@
 import {
-    FETCH_ARTICLES_REQUEST,
-    FETCH_ARTICLES_SUCCESS,
-    FETCH_ARTICLES_FAILURE
+    POST_ARTICLE_REQUEST,
+    POST_ARTICLE_SUCCESS,
+    POST_ARTICLE_FAILURE
 } from './articleTypes'
 
 const initialState = {
-    articles: [],
+    article: {},
     loading: false
 }
 
 const articleReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_ARTICLES_REQUEST:
+        case POST_ARTICLE_REQUEST:
             return {
                 ...state,
                 loading: true
             };
-        case FETCH_ARTICLES_SUCCESS:
+        case POST_ARTICLE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                articles: action.payload
+                article: action.payload
             };
-        case FETCH_ARTICLES_FAILURE:
+        case POST_ARTICLE_FAILURE:
             return {
                 ...state,
                 loading: false

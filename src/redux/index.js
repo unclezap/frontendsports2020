@@ -1,2 +1,2 @@
 export * from "./articleActions"
-export * from "./scoreActions"
+export * from "./batchActions"
