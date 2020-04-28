@@ -16,7 +16,7 @@ function NavBar() {
                 <Link className="nav-link" to='/info'>Popular</Link>
                 <Link className="nav-link" to='/example'>Leaderboard</Link>
                 {token ? null:<Link className="nav-link" to="/signup">Sign Up</Link>}
-                {token ? <Button variant="outline-danger" onClick={props.onLogout}>Logout</Button>:<LoginForm className="form-group" onAuthenticate={props.onAuthenticate}/>}
+                {token ? <Button variant="outline-danger">Logout</Button>:<LoginForm className="form-group" />}
             </div>
      )
 };
