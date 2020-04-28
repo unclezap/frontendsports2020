@@ -19,8 +19,7 @@ export const postArticle = (article) => {
         .then(res => res.json())
         .then(data => {
             if (data.error) {
-                console.log(`error: ${data.error}`)
-                dispatch(postArticleFailure(data.error))
+                dispatch(postArticleFailure(data.error, data.exception))
             } else {
                 dispatch(postArticleSuccess(data))
             }
@@ -35,10 +34,11 @@ export const postArticleRequest = (article) => {
     }
 }
 
-export const postArticleFailure = (error) => {
+export const postArticleFailure = (error, exception) => {
     return {
         type: POST_ARTICLE_FAILURE,
-        error: error
+        error: error,
+        exception: exception
     }
 }
 

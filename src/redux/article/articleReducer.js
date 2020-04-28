@@ -6,30 +6,35 @@ import {
 
 const initialState = {
     article: {},
-    loading: false
+    loading: false,
+    failure: false,
+    error: "",
+    exception: ""
 }
 
 const articleReducer = (state = initialState, action) => {
     switch (action.type) {
         case POST_ARTICLE_REQUEST:
-            console.log("requesting")
             return {
                 ...state,
-                loading: true
+                loading: true,
+                failure: false
             };
-        case POST_ARTICLE_SUCCESS:
-            console.log("success")
+        case POST_ARTICLE_FAILURE:
             return {
                 ...state,
                 loading: false,
-                article: action.payload
-            };
-        case POST_ARTICLE_FAILURE:
-            console.log("failure")
+                failure: true,
+                error: action.error,
+                exception: action.exception
+            }    
+        case POST_ARTICLE_SUCCESS:
             return {
                 ...state,
-                loading: false
-            }
+                loading: false,
+                article: action.payload,
+            };
+       
         default:
             return state;
     }
