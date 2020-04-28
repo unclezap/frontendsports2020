@@ -6,14 +6,22 @@ import {
 
 const API_ROOT = 'http://localhost:3000/'
 
+const token = () => localStorage.getItem("token")
+
+const headers = () => {
+    return {
+        "Content-Type":"application/json",
+        Accept: "application/json",
+        Authorization: token()
+    }
+}
+
 export const postArticle = (article) => {
     return (dispatch) => {
         dispatch(postArticleRequest());
         fetch(`${API_ROOT}/articles`, {
            method: "POST",
-           headers: {
-               "Content-Type": "application/json"
-           },
+           headers: headers(),
            body: JSON.stringify(article)
         })
         .then(res => res.json())

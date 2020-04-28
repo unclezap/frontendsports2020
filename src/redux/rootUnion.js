@@ -6,7 +6,7 @@ import userReducer from './user/userReducer'
 const rootReducer = combineReducers({
     article: articleReducer,
     batch: batchReducer,
-    // user: userReducer
+    user: userReducer
 })
 
 export default rootReducer

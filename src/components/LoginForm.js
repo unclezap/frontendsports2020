@@ -1,48 +1,37 @@
 import React, { Component } from 'react';
+import { postLogin } from '../redux';
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
 
 class LoginForm extends Component {
-    constructor(){
-        super();
-        this.state = {
+    state = {
             error: false,
             fields: {
                 username: "",
                 password: ""
             }
         };
-    };
 
-    actualLogin(fields) {
-        // api.auth.login(fields).then(data => {
-        //     if (data.error) {
-        //         this.setState({
-        //             error: data.error
-        //         }, 
-        //         () => alert(this.state.error))
-        //     } else {
-        //     localStorage.setItem("token", data.jwt);
-        //     this.props.onAuthenticate(data);
-        //     }
-        // })
-    };
-
-    handleChange = (e) => {
-        const newFields = {...this.state.fields, [e.target.name]: e.target.value};
+    handleChange = (event) => {
+        const newFields = {...this.state.fields, [event.target.name]: event.target.value};
         this.setState({
             fields: newFields
         });
     };
     
-    handleSubmit(e) {
-        e.preventDefault();
+    handleSubmit = (event) => {
+        event.preventDefault();
         this.actualLogin(this.state.fields);
     }
 
-    showLoginButton() {
+    actualLogin(fields) {
+        this.props.onPostLogin(fields)
+    };
+
+    render() {
         return (
             <div>
-                    <form onSubmit={e => this.handleSubmit(e)}> 
+                    <form onSubmit={event => this.handleSubmit(event)}> 
                         <label htmlFor="username">
                             Username:
                         </label>
@@ -67,16 +56,12 @@ class LoginForm extends Component {
                 </div>
         )
     }
-
-
-
-
-    render() {
-        return(
-            <div>
-                {this.showLoginButton()}
-            </div>
-        )
-    }
 };
-export default LoginForm;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onPostLogin: (user) => postLogin(user)(dispatch)
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginForm);

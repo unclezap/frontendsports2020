@@ -54,7 +54,7 @@ export const createUserSuccess = (user) => {
 }
 
 //======
-export const postLogin = (user) => {
+export const postLogin = (uservalue) => {
     return (dispatch) => {
         dispatch(signInRequest());
         fetch(`${API_ROOT}/auth`, {
@@ -62,13 +62,15 @@ export const postLogin = (user) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify({user: uservalue})
         })
         .then(res => res.json())
         .then(data => {
             if (data.error) {
                 dispatch(signInFailure(data.error, data.exception))
             } else {
+                console.log(data)
+                localStorage.setItem("token", data.jwt)
                 dispatch(signInSuccess(data))
             }
         })

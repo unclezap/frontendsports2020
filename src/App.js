@@ -9,21 +9,24 @@ import TitleBar from './components/TitleBar'
 import NewPredictionsForm from './components/NewPredictionsForm'
 import BrowsePredictions from './containers/BrowsePredictions'
 import MyAccount from './components/MyAccount'
+// import SignUp from './components/SignUp'
 
 import store from './redux/store'
 
 class App extends React.Component {
 
   componentDidMount() {
-
+    window.addEventListener('beforeunload', this.onUnmount, false)
   }
-
-  onUnMount = () => {
+  
+  
+  onUnmount = () => {
     localStorage.removeItem("token")
   }
-
+  
   componentWillUnmount() {
-    this.onUnMount()
+    window.removeEventListener('beforeunload', this.onUnmount, false);
+    this.onUnmount();
   }
 
   render() {
@@ -41,6 +44,10 @@ class App extends React.Component {
               exact path="/account"
               render={() => <MyAccount />}
             />
+            {/* <Route */}
+              {/* exact path="/account/new" */}
+              {/* render={() => <SignUp />} */}
+            {/* /> */}
             <Route 
               exact path="/new"
               render={() => <NewPredictionsForm />}

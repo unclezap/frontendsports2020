@@ -11,11 +11,18 @@ const AuthHOC = WrappedComponent => {
             }
         }
 
+        alertAndRedirect = () => {
+            alert ("Log in first!")
+            return <Redirect to="/" />
+        }
+
         render() {
             return (
                 <> {this.isAuthorized()
                     ?<WrappedComponent {...this.props} />
-                    :<Redirect to="/" />}
+                    :
+                    this.alertAndRedirect()
+                    }
                 </>
             )
         }

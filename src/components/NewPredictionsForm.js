@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { postArticle } from '../redux';
 import AnalysisCard from '../components/AnalysisCard';
+import AuthHOC from '../HOC/AuthHOC';
 
 const INITIAL_STATE = {
     article: "",
@@ -80,4 +81,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPredictionsForm)
+export default AuthHOC(connect(mapStateToProps, mapDispatchToProps)(NewPredictionsForm))

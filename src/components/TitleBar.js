@@ -1,4 +1,5 @@
 import React from 'react';
+import AuthHOC from '../HOC/AuthHOC'
 
 function TitleBar() {
     return(
