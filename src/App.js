@@ -3,6 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import ScoreCard from './components/ScoreCard'
 import { api } from './API';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import NavBar from './containers/NavBar'
+import TitleBar from './components/TitleBar'
+import NewPredictionsForm from './components/NewPredictionsForm'
+import OldPredictions from './containers/OldPredictions'
 
 class App extends React.Component {
 
@@ -14,7 +19,7 @@ class App extends React.Component {
     // this.getNFLGames()
   }
 
-  onUnMount = () =< {
+  onUnMount = () => {
     localStorage.removeItem("token")
   }
 
@@ -62,13 +67,31 @@ class App extends React.Component {
 }
 
   render() {
+
     return (
-      <div>
-        <ul>
-        {this.showScores()}
-        </ul>
-      </div>
+      <Router>
+        <div>
+          <NavBar />
+          <Route
+            exact path="/"
+            render={() => <TitleBar />}
+          />
+          <Route
+            exact path="/account"
+            render={() => <MyAccount />}
+          />
+          <Route 
+            exact path="/new"
+            render={() => <NewPredictionsForm />}
+          />
+          <Route
+            exact path="/old"
+            render={() => <OldPredictions />}
+          />
+        </div>
+      </Router>
     );
+
   }
   
 }
