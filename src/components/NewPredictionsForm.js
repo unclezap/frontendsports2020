@@ -4,13 +4,24 @@ import { connect } from 'react-redux';
 import { postArticle } from '../redux'
 
 const INITIAL_STATE = {
-    articles: [],
+    article: "",
     submitted: false
 }
 
 class NewPredictionsForm extends React.Component {
     
     state = INITIAL_STATE
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.setState({submitted: "true"}, ()=> this.props.onPostArticle(this.state))
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            article: event.target.value
+        })
+    }
 
     render () {
         return (
@@ -24,6 +35,8 @@ class NewPredictionsForm extends React.Component {
                             type="text"
                             name="website"
                             placeholder="please enter a website"
+                            value={this.state.article}
+                            onChange={this.handleChange}
                         />
                     </div>
                     <div>
@@ -37,13 +50,10 @@ class NewPredictionsForm extends React.Component {
     }
 }
 
-export default NewPredictionsForm
+const mapDispatchToProps = dispatch => {
+    return {
+        onPostArticle: (article) => postArticle(article)(dispatch)
+    }
+}
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onClick: (articleFromState) => postArticles(articleFromState)(dispatch)
-//         //add in the post articles
-//     }
-// }
-
-// export default connect(null, mapDispatchToProps)(NewPredictionsForm)
+export default connect(null, mapDispatchToProps)(NewPredictionsForm)

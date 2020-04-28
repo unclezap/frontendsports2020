@@ -6,25 +6,23 @@ import {
 
 const API_ROOT = 'http://localhost:3000/'
 
-export const addArticles = (articles) => {
-    return {
-        type: ADD_ARTICLES,
-        payload: articles
-    }
-}
-
 export const postArticle = (article) => {
     return (dispatch) => {
         dispatch(postArticleRequest());
-        fetch(`${API_ROOT}/articles`)
+        fetch(`${API_ROOT}/articles`, {
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json"
+           },
+           body: JSON.stringify(article)
+        })
         .then(res => res.json())
         .then(data => {
             if (data.error) {
-                console.log(`error: ${error}`)
+                console.log(`error: ${data.error}`)
                 dispatch(postArticleFailure(data.error))
             } else {
-                console.log(`data ${data}`)
-                dispatch(postStudentSuccess(data))
+                dispatch(postArticleSuccess(data))
             }
         })
     }
