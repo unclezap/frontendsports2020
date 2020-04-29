@@ -18,13 +18,16 @@ export const postNewUser = (user) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify({user: user})
         })
         .then(res => res.json())
         .then(data => {
             if (data.error) {
                 dispatch(createUserFailure(data.error, data.exception))
             } else {
+                console.log(data)
+                console.log(data.jwt)
+                localStorage.setItem("token", data.jwt)
                 dispatch(createUserSuccess(data))
             }
         })
@@ -69,7 +72,6 @@ export const postLogin = (uservalue) => {
             if (data.error) {
                 dispatch(signInFailure(data.error, data.exception))
             } else {
-                console.log(data)
                 localStorage.setItem("token", data.jwt)
                 dispatch(signInSuccess(data))
             }
