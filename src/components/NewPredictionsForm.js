@@ -29,18 +29,6 @@ class NewPredictionsForm extends React.Component {
             fields: newFields,
             submitted: false
         });
-
-        // event.preventDefault()
-        // console.log(event.target.value)
-        // console.log(event)
-        // this.setState(prev=>{
-        //         return {
-        //             ...prev.state,
-        //             [event.target.name]: event.target.value,
-        //             submitted: false
-        //         }   
-        //     }
-        // )
     }
 
     handleGoBack = (event) => {
@@ -52,7 +40,7 @@ class NewPredictionsForm extends React.Component {
     render () {
 //add a loading animation below
         return (
-            <div>
+            <div style={{background: this.props.color3, display: "flex", alignItems: "center", justifyContent: "center"}}>
                 {this.state.submitted && !this.props.failure && !this.props.loading ? <AnalysisCard previousPage={"new"} onGoBack={this.handleGoBack.bind(this)}/> : 
                         <div>
                         <form onSubmit={this.handleSubmit}>
@@ -104,6 +92,7 @@ const mapStateToProps = state => {
     return {
         failure: state.article.failure,
         loading: state.article.loading,
+        style: state.style
     }
 }
 

@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
 import { postNewUser } from '../redux';
 import { connect } from 'react-redux';
+import ReverseAuthHOC from '../HOC/ReverseAuthHOC'
 
 class SignUp extends React.Component {
     state = {
@@ -23,7 +24,7 @@ class SignUp extends React.Component {
     };
     
     handleSubmit = (event) => {
-        event.preventDefault()
+        // event.preventDefault()
         let userObject = {
             username: this.state.fields.username,
             password: this.state.fields.password
@@ -99,4 +100,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default ReverseAuthHOC(connect(null, mapDispatchToProps)(SignUp));

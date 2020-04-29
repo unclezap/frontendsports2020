@@ -1,9 +1,10 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
-const AuthHOC = WrappedComponent => {
-    return class AuthHOC extends React.Component {
+const ReverseAuthHOC = WrappedComponent => {
+    return class ReverseAuthHOC extends React.Component {
         isAuthorized = () => {
+            console.log("reverse")
             if (localStorage.getItem("token")) {
                 return true
             } else {
@@ -18,7 +19,7 @@ const AuthHOC = WrappedComponent => {
 
         render() {
             return (
-                <> {this.isAuthorized()
+                <> {!this.isAuthorized()
                     ?<WrappedComponent {...this.props} />
                     :
                     this.alertAndRedirect()
@@ -29,4 +30,4 @@ const AuthHOC = WrappedComponent => {
     }
 }
 
-export default AuthHOC;
+export default ReverseAuthHOC;
