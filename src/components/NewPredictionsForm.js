@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     },
     submitted: false,
     failure: false,
+    spinner: Math.floor(Math.random()*2) + 1
 }
 
 class NewPredictionsForm extends React.Component {
@@ -75,6 +76,8 @@ class NewPredictionsForm extends React.Component {
                             </div>
                         </form>
                         <h3>{this.props.failure ? "Hmm, that didn't seem to work. Try again!" : null}</h3>
+                        <h2>{this.props.loading && this.state.spinner === 1? <div style={{backgroundImage: this.props.style.loading1, height: "460px", width: "460px"}}/> : null }</h2>
+                        <h2>{this.props.loading && this.state.spinner === 2? <div style={{backgroundImage: this.props.style.loading2, height: "460px", width: "460px"}}/> : null }</h2>
                     </div>
                 }
             </div>

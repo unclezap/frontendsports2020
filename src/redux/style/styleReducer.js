@@ -2,6 +2,8 @@ import stats from '../IMG/stats.gif'
 import helmetCatch from '../IMG/helmetCatch.gif'
 import code from '../IMG/code.gif'
 import twoHundredW from '../IMG/twoHundredW.gif'
+import balls from '../IMG/balls.gif'
+import hourGlass from '../IMG/hourGlass.gif'
 
 import {
     KILL_CSS,
@@ -14,6 +16,8 @@ const initialState = {
     backgroundImage3: `url(${code})`,
     backgroundImage4: `url(${twoHundredW})`,
     backgroundImage5: null,
+    loading1: `url(${balls})`,
+    loading2: `url(${hourGlass})`,
     color1: "white",
     color2: "red",
     color3: "darkblue",
