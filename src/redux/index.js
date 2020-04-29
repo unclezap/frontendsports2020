@@ -1,3 +1,4 @@
 export * from "./article/articleActions"
-export * from "./batch/batchActions"
+export * from "./style/styleActions"
 export * from "./user/userActions"
+export * from "./batch/batchActions"

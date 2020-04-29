@@ -14,7 +14,7 @@ class AnalysisCard extends React.Component {
         console.log(this.props)
         return (
 
-            <Card style={{ width: '18rem' }} className="text-center">
+            <Card style={{ backgroundImage: this.props.style.backgroundImage4, width: '100rem', height: '50rem' }} className="text-center">
                 {this.props.batch !== undefined ? <Card.Title>{this.props.batch.name}</Card.Title> : null}
                 {/* {this.makeCard()} */}
                 
@@ -35,7 +35,8 @@ const mapStateToProps = state => {
     return {
         batch: state.article.article.batch,
         predictions: state.article.article.predictions,
-        scores: state.article.article.scores
+        scores: state.article.article.scores,
+        style: state.style
     }
 }
 

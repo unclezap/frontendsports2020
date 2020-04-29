@@ -56,19 +56,3 @@ export const postArticleSuccess = (article) => {
         payload: article
     }
 }
-
-// export const fetchArticle = (articleId) => {
-//     return (dispatch) => {
-//         fetch(`http://localhost:3000/articles/${articleId}`)
-//         .then(res => res.json())
-//         .then(data => {
-//             if (data.error) {
-//                 dispatch(fetchArticleFailure(data.error))
-//                 console.log(data.error)
-//             } else {
-//                 dispatch(fetchArticleSuccess(data))
-//                 console.log("got the article!")
-//             }
-//         })
-//     }
-// }

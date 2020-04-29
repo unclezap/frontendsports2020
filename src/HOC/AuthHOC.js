@@ -12,7 +12,7 @@ const AuthHOC = WrappedComponent => {
         }
 
         alertAndRedirect = () => {
-            alert ("Log in first!")
+            // alert ("Log in first!")
             return <Redirect to="/" />
         }
 

@@ -31,7 +31,7 @@ class LoginForm extends Component {
     render() {
         return (
             <div>
-                    <form onSubmit={event => this.handleSubmit(event)}> 
+                    <form onSubmit={event => this.handleSubmit(event)} style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}> 
                         <label htmlFor="username">
                             Username:
                         </label>
@@ -64,4 +64,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+const mapStateToProps = state => {
+    return {
+        style: state.style
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

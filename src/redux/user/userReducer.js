@@ -42,6 +42,7 @@ const userReducer = (state = initialState, action) => {
                 user: action.payload
             }
         case LOG_OUT:
+            localStorage.removeItem("token")
             return {
                 initialState
             }

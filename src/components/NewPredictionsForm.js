@@ -74,10 +74,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        // ...this.state,
         failure: state.article.failure,
         loading: state.article.loading,
-        batch: state.article.batch
     }
 }
 

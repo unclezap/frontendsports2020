@@ -1,19 +1,40 @@
 import {
-    FETCH_BATCH_REQUEST,
-    FETCH_BATCH_SUCCESS,
-    FETCH_BATCH_FAILURE
+    FETCH_BATCHES_REQUEST,
+    FETCH_BATCHES_SUCCESS,
+    FETCH_BATCHES_FAILURE
 } from './batchTypes'
 
 const initialState = {
     batch: {},
-    loading: false
+    loading: false,
+    failure: false,
+    error: "",
+    exception: ""
 }
 
-const batchReducer = (state=initialState, action) => {
+const batchReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_BATCH_REQUEST:
-        case FETCH_BATCH_FAILURE:
-        case FETCH_BATCH_SUCCESS:
+        case FETCH_BATCHES_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                failure: false
+            };
+        case FETCH_BATCHES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                failure: true,
+                error: action.error,
+                exception: action.exception
+            }    
+        case FETCH_BATCHES_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                batch: action.payload,
+            };
+       
         default:
             return state;
     }

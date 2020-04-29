@@ -1,6 +1,6 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -10,8 +10,6 @@ import NewPredictionsForm from './components/NewPredictionsForm'
 import BrowsePredictions from './containers/BrowsePredictions'
 import MyAccount from './components/MyAccount'
 import SignUp from './components/SignUp'
-
-import store from './redux/store'
 
 class App extends React.Component {
 
@@ -30,11 +28,9 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
-      <Provider store={store}>
         <Router>
-          <div>
+          <div style={{backgroundImage: this.props.style.backgroundImage1}}>
             <NavBar />
             <Route
               exact path="/"
@@ -57,15 +53,21 @@ class App extends React.Component {
               render={() => <BrowsePredictions />}
             />
           </div>
+          <div style={{backgroundImage: this.props.style.backgroundImage2, height: "270px"}}></div>
+          <div style={{backgroundImage: this.props.style.backgroundImage3, height: "300px"}}></div>
         </Router>
-      </Provider>
     );
-
   }
-  
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    style: state.style
+  }
+}
+
+export default connect(mapStateToProps)(App);
+// export default App;
 
 
 // componentDidMount() {
