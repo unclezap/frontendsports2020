@@ -28,6 +28,7 @@ export const fetchBatches = () => {
             if (data.error) {
                 dispatch(fetchBatchesFailure(data.error, data.exception))
             } else {
+                console.log(data)
                 dispatch(fetchBatchesSuccess(data))
             }
         })
