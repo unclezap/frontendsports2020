@@ -6,7 +6,10 @@ import AnalysisCard from '../components/AnalysisCard';
 import AuthHOC from '../HOC/AuthHOC';
 
 const INITIAL_STATE = {
-    article: "",
+    fields: {
+        article: "",
+        name: ""
+    },
     submitted: false,
     failure: false,
 }
@@ -17,14 +20,27 @@ class NewPredictionsForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({submitted: true}, ()=> this.props.onPostArticle(this.state))
+        this.setState({submitted: true}, ()=> this.props.onPostArticle(this.state.fields))
     }
 
     handleChange = (event) => {
+        const newFields = {...this.state.fields, [event.target.name]: event.target.value};
         this.setState({
-            article: event.target.value,
+            fields: newFields,
             submitted: false
-        })
+        });
+
+        // event.preventDefault()
+        // console.log(event.target.value)
+        // console.log(event)
+        // this.setState(prev=>{
+        //         return {
+        //             ...prev.state,
+        //             [event.target.name]: event.target.value,
+        //             submitted: false
+        //         }   
+        //     }
+        // )
     }
 
     handleGoBack = (event) => {
@@ -46,9 +62,21 @@ class NewPredictionsForm extends React.Component {
                                 </label>
                                 <input
                                     type="text"
-                                    name="website"
-                                    placeholder="please enter a website"
-                                    value={this.state.article}
+                                    name="article"
+                                    placeholder="please enter a url"
+                                    value={this.state.fields.article}
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="name">
+                                    Name this prediction:
+                                </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="optional"
+                                    value={this.state.name}
                                     onChange={this.handleChange}
                                 />
                             </div>
