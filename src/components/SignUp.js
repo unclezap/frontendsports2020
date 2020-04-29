@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
+import { postNewUser } from '../redux';
+import { connect } from 'react-redux';
 
 class SignUp extends React.Component {
     state = {
@@ -26,20 +28,18 @@ class SignUp extends React.Component {
             username: this.state.fields.username,
             password: this.state.fields.password
         }
-        event.preventDefault();
         if (this.state.fields.password !== this.state.fields.verifyPassword) {
             alert("Passwords do not match. Please try again.")
         } else {
-            // api.user.createUser(userObject);
-            // this.props.history.push('/');
-            // if (localStorage.getItem("token")) {
-            //     // console.log("token is there")
-            //     this.props.easterEgg()
-            }
-            alert("Account creation succesful. Log in with your new credentials.")
-        };
+            this.actualSignUp(userObject)
+            //map state to props and give the alert if it worked
+            alert ("Account creation succesful. Log in with your new credentials.")
+        }
+    };
         
-    
+    actualSignUp = (user) => {
+        this.props.onSignUp(user)
+    }
 
     render() {
         return(
@@ -94,9 +94,9 @@ class SignUp extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSignUp = (user) => postNewUser(user)(dispatch)
+        onSignUp: (user) => postNewUser(user)(dispatch)
     }
 }
 
 
-export default SignUp;
+export default connect(null, mapDispatchToProps)(SignUp);

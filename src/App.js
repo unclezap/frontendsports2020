@@ -9,7 +9,7 @@ import TitleBar from './components/TitleBar'
 import NewPredictionsForm from './components/NewPredictionsForm'
 import BrowsePredictions from './containers/BrowsePredictions'
 import MyAccount from './components/MyAccount'
-// import SignUp from './components/SignUp'
+import SignUp from './components/SignUp'
 
 import store from './redux/store'
 
@@ -44,10 +44,10 @@ class App extends React.Component {
               exact path="/account"
               render={() => <MyAccount />}
             />
-            {/* <Route */}
-              {/* exact path="/account/new" */}
-              {/* render={() => <SignUp />} */}
-            {/* /> */}
+            <Route
+              exact path="/signup"
+              render={() => <SignUp />}
+            />
             <Route 
               exact path="/new"
               render={() => <NewPredictionsForm />}

@@ -24,8 +24,8 @@ class LoginForm extends Component {
         this.actualLogin(this.state.fields);
     }
 
-    actualLogin(fields) {
-        this.props.onPostLogin(fields)
+    actualLogin = (user) => {
+        this.props.onPostLogin(user)
     };
 
     render() {
