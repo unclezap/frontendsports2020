@@ -137,8 +137,6 @@ class ScoreCard extends React.Component {
 
     render () {
 
-
-
         return (
             <Card style={{ width: '18rem' }} className="text-center">
                 <h5>{`Predictions for ${this.props.game[0]}-${this.props.game[1]}`}</h5>
@@ -158,4 +156,4 @@ export default ScoreCard;
 //     this.giveReport()
 // }
 
-                {/* {this.props.team_1_actual_score !== undefined && this.state.correct > -1 ? <p>{`Espn got ${this.state.correct} predictions correct!`}</p> : <div>{this.giveReport}</div>} */}
+     //           {/* {this.props.team_1_actual_score !== undefined && this.state.correct > -1 ? <p>{`Espn got ${this.state.correct} predictions correct!`}</p> : <div>{this.giveReport}</div>} */}

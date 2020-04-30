@@ -15,11 +15,10 @@ import { connect } from 'react-redux';
 
     render () {
         return (
-            // This will render as title, or welcome according to state of APP / props being passed.
             <div >
                 <h1 style={{background: "blue", display: "flex", alignItems: "center", justifyContent: "center"}}>Hindsight is Sports2020!</h1>
                 <br></br>
-                {this.props.token == undefined ? this.showLogin() : null }
+                {this.props.token === undefined ? this.showLogin() : null }
             </div>
         );
     }
