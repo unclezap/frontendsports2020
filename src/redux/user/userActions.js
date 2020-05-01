@@ -10,6 +10,7 @@ import {
 
 const API_ROOT = 'http://localhost:3000'
 
+//user creation
 export const postNewUser = (user) => {
     return (dispatch) => {
         dispatch(createUserRequest());
@@ -56,7 +57,7 @@ export const createUserSuccess = (user) => {
     }
 }
 
-//======
+//old user login
 export const postLogin = (uservalue) => {
     return (dispatch) => {
         dispatch(signInRequest());

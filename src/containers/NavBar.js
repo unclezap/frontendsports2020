@@ -7,7 +7,6 @@ import { revive } from '../redux';
 import { signOut } from '../redux'
 
 class NavBar extends React.Component {
-    // use token value (true || false to determine which links to show.)
     state = {}
 
     handleRemove = () => {
@@ -29,9 +28,9 @@ class NavBar extends React.Component {
                 <Link className="nav-link" to="/">Home</Link>
                 <Link className="nav-link" to='/new'>Analyze Predictions</Link>
                 <Link className="nav-link" to='/old'>Saved Predictions</Link>
-                {this.props.token !== undefined ? null : <Link className="nav-link" to="/signup">Sign Up</Link>}
-                {this.props.token !== undefined ? <Button variant="outline-danger" onClick={this.handleLogout}>Logout</Button> : <Link className="nav-link" to="/">Log In</Link>}
-                {this.props.token !== undefined ? <Link className="nav-link" to="/account">My Account</Link> : null}
+                {!!this.props.token ? null : <Link className="nav-link" to="/signup">Sign Up</Link>}
+                {!!this.props.token ? <Link className="nav-link" to="/account">My Account</Link> : null}
+                {!!this.props.token ? <Button variant="outline-danger" onClick={this.handleLogout}>Logout</Button> : null}
             </div>
         )
     }
@@ -47,13 +46,14 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    if (state.user.user !== undefined) {
+    if (state.user.loaded) {
         return {
             token: state.user.user.jwt,
             style: state.style
         }
     } else {
         return {
+            token: false,
             style: state.style
         }
     }

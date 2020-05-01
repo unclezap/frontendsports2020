@@ -5,20 +5,12 @@ import { connect } from 'react-redux';
 
 class MyAccount extends React.Component {
 
-    componentDidMount() {
-        
-    };
-
+    //add password change button
     render() {
-        const { username } = this.props.user;
 
         return(
             <div>
-                <h4>Username: {username}</h4>
-                <Button variant="outline-dark" onClick={this.quizToggle}>My Quizzes</Button>
-                {this.state.quizClick ? this.seeMyQuizzes() : null}
-                <Button variant="outline-dark" onClick={this.scoreToggle}>My Scores</Button>
-                {this.state.scoreClick ? this.seeMyScores(): null}
+                <h4>Username: {this.props.username} </h4>
             </div>
         );
     };
@@ -26,7 +18,7 @@ class MyAccount extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user.data
+        username: state.user.user.user.username
     }
 }
 
