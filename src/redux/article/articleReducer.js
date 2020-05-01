@@ -8,6 +8,7 @@ const initialState = {
     article: {},
     loading: false,
     failure: false,
+    loaded: false,
     error: "",
     exception: ""
 }
@@ -32,6 +33,7 @@ const articleReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                loaded: true,
                 article: action.payload,
             };
        

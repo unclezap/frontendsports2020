@@ -39,10 +39,18 @@ class NewPredictionsForm extends React.Component {
     }
 
     render () {
-//add a loading animation below
         return (
             <div style={{background: this.props.color3, display: "flex", alignItems: "center", justifyContent: "center"}}>
-                {this.state.submitted && !this.props.failure && !this.props.loading ? <AnalysisCard previousPage={"new"} onGoBack={this.handleGoBack.bind(this)} predictions={this.props.predictions} scores={this.props.scores}/> : 
+                {this.state.submitted && !this.props.failure && !this.props.loading
+                ? <AnalysisCard
+                    previousPage={"new"}
+                    onGoBack={this.handleGoBack.bind(this)}
+                    predictions={this.props.predictions}
+                    scores={this.props.scores}
+                    batch={this.props.batch} 
+                    loaded={this.props.loaded}
+                 /> 
+                : 
                         <div>
                         <form onSubmit={this.handleSubmit}>
                             <div>
@@ -95,6 +103,7 @@ const mapStateToProps = state => {
     return {
         failure: state.article.failure,
         loading: state.article.loading,
+        loaded: state.article.loaded,
         style: state.style,
         batch: state.article.article.batch,
         predictions: state.article.article.predictions,

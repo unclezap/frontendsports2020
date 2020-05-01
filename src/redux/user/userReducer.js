@@ -12,6 +12,7 @@ const initialState = {
     user: {},
     loading: false,
     failure: false,
+    loaded: false,
     error: "",
     exception: ""
 }
@@ -39,6 +40,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                loaded: true,
                 user: action.payload
             }
         case LOG_OUT:

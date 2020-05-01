@@ -4,24 +4,34 @@ import { Container, Row } from 'react-bootstrap';
 import AuthHOC from '../HOC/AuthHOC';
 import { connect } from 'react-redux';
 import { fetchBatches } from '../redux';
+import AnalysisCard from '../components/AnalysisCard'
 
 class BrowsePredictions extends React.Component {
 
     componentDidMount() {
-        console.log("hi")
         this.props.onFetchBatches()
     }
 
+    handleGoBack (event) {
+        event.preventDefault()
+    }
+
     allPredictions = () => {
-        return <p>This feature is being built out!</p>
-        // return this.props.batch.map((thisPrediction, index) => {
-        //     return (<Col><PredictionCard key={index} prediction={thisPrediction} analysisIndex={index} prevPage={Browse}/></Col>)
-        // })
+        if (this.props.batch.loaded === true) {
+            return this.props.batch.batch.map((batch, index) => {
+                return <AnalysisCard
+                            previousPage={"browse"}
+                            onGoBack={this.handleGoBack.bind(this)}
+                            predictions={batch.predictions}
+                            scores={batch.scores}
+                            batch={batch}
+                            loaded={this.props.loaded}
+                        />
+            })
+        }
     }
 
     render() {
-        console.log(this.props)
-        console.log(this.props.article)
         return (
             <Container fluid="md">
                 <Row>
@@ -43,8 +53,9 @@ const mapStateToProps = state => {
     return {
         failure: state.batch.failure,
         loading: state.batch.loading,
+        loaded: state.batch.loaded,
         batch: state.batch,
-        article: state.article.article
+        style: state.style
     }
 }
 

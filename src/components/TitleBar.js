@@ -25,7 +25,7 @@ import { connect } from 'react-redux';
 };
 
 const mapStateToProps = state => {
-    if (state.user.user !== undefined) {
+    if (state.user.loaded) {
         return {
             token: state.user.user.jwt,
             style: state.style

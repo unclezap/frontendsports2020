@@ -8,6 +8,7 @@ const initialState = {
     batch: {},
     loading: false,
     failure: false,
+    loaded: false,
     error: "",
     exception: ""
 }
@@ -32,6 +33,7 @@ const batchReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                loaded: true,
                 batch: action.payload,
             };
        
