@@ -12,8 +12,9 @@ class BrowsePredictions extends React.Component {
         this.props.onFetchBatches()
     }
 
-    handleGoBack (event) {
-        event.preventDefault()
+    handleGoBack = (event) => {
+        // event.preventDefault()
+        // console.log("GO BACK!")
     }
 
     allPredictions = () => {

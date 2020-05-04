@@ -1,6 +1,9 @@
     import React from 'react';
     import { Col, Row } from 'react-bootstrap'
     import GameCard from '../components/GameCard';
+    import { connect } from 'react-redux'
+
+    // export const fakeState
 
     export const makeAnalysis = (predictions, scores) => {
         let games = []
@@ -58,10 +61,66 @@
                 }
             }
 
+            let espn1 = 0
+            let espn2 = 0
+            let correct = 0
+            let color = "white"
+
+            switch (team_1_score_predictions[0] > team_2_score_predictions[0]) {
+                case true:
+                    espn1++
+                    break;
+                case false:
+                    espn2++
+                    break;
+                default:
+                    break;
+            }
+
+            switch (team_1_score_predictions[1] > team_2_score_predictions[1]) {
+                case true:
+                    espn1++
+                    break;
+                case false:
+                    espn2++
+                    break;
+                default:
+                    break;
+            }
+
+            switch (team_1_actual_score > team_2_actual_score) {
+                case true:
+                    correct = espn1
+                    break;
+                case false:
+                    correct = espn2
+                    break;
+                default:
+                    break;
+            }
+
+            switch (correct) {
+                case 2:
+                    color = "green"
+                    break;
+                case 1:
+                    color = "yellow"
+                    break
+                default:
+                    color = "red"
+            }
+
             return (
                 <Col key={index}>
-                <GameCard
-                game={game} team_1_score_predictions={team_1_score_predictions} team_2_score_predictions={team_2_score_predictions} team_1_actual_score={team_1_actual_score} team_2_actual_score={team_2_actual_score} />
+                    <GameCard
+                    game={game}
+                    team_1_score_predictions={team_1_score_predictions}
+                    team_2_score_predictions={team_2_score_predictions}
+                    team_1_actual_score={team_1_actual_score}
+                    team_2_actual_score={team_2_actual_score}
+                    correct={correct}
+                    color={color}
+                    />
                 </Col>
             )
         })

@@ -5,8 +5,10 @@ class ScoreCard extends React.Component {
 
     state = {
         clicked: false,
-        height: "3rem"
+        height: "3rem",
+        color: "white"
     }
+    
 
     handleClick = () => {
         this.setState(prev => {
@@ -69,14 +71,23 @@ class ScoreCard extends React.Component {
     render () {
 
         return (
-            <Card onClick={this.handleClick} style={{ width: '18rem', height: this.state.height}} className="text-center">
+            <Card
+                onClick={this.handleClick}
+                className="text-center"
+                style={{ 
+                    background: this.props.color,
+                    width: '18rem',
+                    height: this.state.height
+                }}
+            >
                 <h5>{`Predictions for ${this.props.game[0]}-${this.props.game[1]}`}</h5>
                 {this.state.clicked ?
                     <div>
                         <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[0]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[0]}`}</p>
                         <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[1]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[1]}`}</p>
                         <h6><strong>{`Actual score: ${this.props.game[0]}: ${this.props.team_1_actual_score}, ${this.props.game[1]}: ${this.props.team_2_actual_score}`}</strong></h6>
-                        {this.props.team_1_actual_score > this.props.team_2_actual_score ? this.teamAWins() : this.teamBWins()} 
+                        {/* {this.props.team_1_actual_score > this.props.team_2_actual_score ? this.teamAWins() : this.teamBWins()}  */}
+                        <p>{`Espn got ${this.props.correct} correct!`}</p>
                     </div>
                 : null}
             </Card>

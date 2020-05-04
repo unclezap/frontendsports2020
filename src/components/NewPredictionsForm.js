@@ -33,7 +33,7 @@ class NewPredictionsForm extends React.Component {
     }
 
     handleGoBack = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         this.setState({submitted: false})
 
     }
@@ -65,7 +65,7 @@ class NewPredictionsForm extends React.Component {
                                     onChange={this.handleChange}
                                 />
                             </div>
-                            <div>
+                            {/* <div>
                                 <label htmlFor="name">
                                     Name this prediction:
                                 </label>
@@ -76,7 +76,7 @@ class NewPredictionsForm extends React.Component {
                                     value={this.state.name}
                                     onChange={this.handleChange}
                                 />
-                            </div>
+                            </div> */}
                             <div>
                                 <Button type="submit">
                                     Analyze predictions

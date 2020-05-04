@@ -11,38 +11,45 @@ class AnalysisCard extends React.Component {
         height: "3rem"
     }
 
-    // handleClick = () => {
-    //     this.setState(prev => {
-    //         let newHeight
-    //     })
-    // }
+    handleClick = (event) => {
+        event.preventDefault()
+        this.setState(prev => {
+            let newHeight
+            if (prev.height === "3rem") {
+                newHeight = "25rem"
+            } else {
+                newHeight = "3rem"
+            }
+            return {clicked: !prev.clicked, height: newHeight}
+        })
+    }
 
     getAnalysis = () => {
-        return makeAnalysis(this.props.predictions, this.props.scores)
+        return makeAnalysis(this.props.predictions, this.props.scores, true)
     }
     
     render () {
         return (
-            <Container fluid>
+            <Container fluid >
                 <div style={{textAlign: "center"}}>
                 <Link
                     to={`/${this.props.previousPage}`}
                     className="btn btn-outline-dark"
                     style={{width: "18rem"}}
-                    // onClick={(event) => this.props.onGoBack(event)}
+                    onClick={(event) => this.props.onGoBack(event)}
                 >Go Back</Link>
                 </div>
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,
                         width: '80rem',
-                        height: '50rem'
+                        height: this.state.height
                      }}
                      className="text-center"
-                     onClick={this.handleClick}
+                     
                 >
-                {this.props.loaded ? <Card.Title>{this.props.batch.name}</Card.Title> : null}
-                {this.props.loaded && this.props.predictions.length > 0 ? this.getAnalysis(): <h1>loading...</h1>}
+                {this.props.loaded ? <Card.Title onClick={this.handleClick}>{this.props.batch.name}</Card.Title> : null}
+                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked ? this.getAnalysis(): null}
                 </Card>
             </Container>
         )
