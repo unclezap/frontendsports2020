@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { connect } from 'react-redux'
+import { addCorrect } from '../redux'
 
 class ScoreCard extends React.Component {
 
@@ -8,7 +10,10 @@ class ScoreCard extends React.Component {
         height: "3rem",
         color: "white"
     }
-    
+
+    componentDidMount () {
+        this.props.onAddCorrect(this.props.correct)
+    }
 
     handleClick = () => {
         this.setState(prev => {
@@ -96,4 +101,12 @@ class ScoreCard extends React.Component {
 
 }
 
-export default ScoreCard;
+const mapDispatchToProps = dispatch => {
+    return {
+       onAddCorrect: (correct) => dispatch(addCorrect(correct)) 
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ScoreCard)
+
+// export default ScoreCard;

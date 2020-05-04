@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { Container, Card } from 'react-bootstrap';
 import {makeAnalysis} from '../functions/analysis'
+import MakeAnalysis from './MakeAnalysis'
 
 class AnalysisCard extends React.Component {
 
@@ -20,12 +21,15 @@ class AnalysisCard extends React.Component {
             } else {
                 newHeight = "3rem"
             }
+            console.log("setting state")
+            // debugger;
             return {clicked: !prev.clicked, height: newHeight}
         })
     }
 
     getAnalysis = () => {
-        return makeAnalysis(this.props.predictions, this.props.scores, true)
+        // return makeAnalysis(this.props.predictions, this.props.scores, true)
+        return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores}/>
     }
     
     render () {
@@ -39,6 +43,7 @@ class AnalysisCard extends React.Component {
                     onClick={(event) => this.props.onGoBack(event)}
                 >Go Back</Link>
                 </div>
+                {this.props.analysis.loaded ? <h1>{`ESPN got ${this.props.analysis.correct} correct in total!`}</h1> : null}
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,
@@ -58,7 +63,8 @@ class AnalysisCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        style: state.style
+        style: state.style,
+        analysis: state.analysis
     }
 }
 
