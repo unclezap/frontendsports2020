@@ -24,7 +24,7 @@ class SignUp extends React.Component {
     };
     
     handleSubmit = (event) => {
-        // event.preventDefault()
+        event.preventDefault()
         let userObject = {
             username: this.state.fields.username,
             password: this.state.fields.password
