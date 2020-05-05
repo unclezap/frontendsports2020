@@ -72,6 +72,7 @@ class MakeAnalysis extends React.Component {
             let espn1 = 0
             let espn2 = 0
             let correct = 0
+            let incorrect = 0
             let color = "white"
     
             switch (team_1_score_predictions[0] > team_2_score_predictions[0]) {
@@ -99,9 +100,11 @@ class MakeAnalysis extends React.Component {
             switch (team_1_actual_score > team_2_actual_score) {
                 case true:
                     correct = espn1
+                    incorrect = espn2
                     break;
                 case false:
                     correct = espn2
+                    incorrect = espn2
                     break;
                 default:
                     break;
@@ -133,6 +136,7 @@ class MakeAnalysis extends React.Component {
                     team_1_actual_score={team_1_actual_score}
                     team_2_actual_score={team_2_actual_score}
                     correct={correct}
+                    incorrect={incorrect}
                     color={color}
                     />
                 </Col>

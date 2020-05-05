@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthHOC from '../HOC/AuthHOC';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class MyAccount extends React.Component {

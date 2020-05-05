@@ -2,9 +2,10 @@ import {
     UPDATE_CORRECT_PREDICTIONS
 } from './analysisTypes'
 
-export const addCorrect = (number) => {
+export const addCorrect = (numberCorrect, numberIncorrect) => {
     return {
         type: UPDATE_CORRECT_PREDICTIONS,
-        payload: number
+        correct: numberCorrect,
+        incorrect: numberIncorrect
     }
 }

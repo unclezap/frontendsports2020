@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { Container, Card } from 'react-bootstrap';
-import {makeAnalysis} from '../functions/analysis'
+// import {makeAnalysis} from '../functions/analysis'
 import MakeAnalysis from './MakeAnalysis'
+import BarChart from '../charts/BarChart'
 
 class AnalysisCard extends React.Component {
 
@@ -54,7 +55,12 @@ class AnalysisCard extends React.Component {
                      
                 >
                 {this.props.loaded ? <Card.Title onClick={this.handleClick}>{this.props.batch.name}</Card.Title> : null}
-                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked ? this.getAnalysis(): null}
+                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked 
+                ? <div>
+                    {this.getAnalysis()}
+                    {<BarChart analysis={this.props.analysis}/>}
+                  </div>
+                : null}
                 </Card>
             </Container>
         )

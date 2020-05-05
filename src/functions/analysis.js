@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap'
 import GameCard from '../components/GameCard';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 // export const fakeState
 
