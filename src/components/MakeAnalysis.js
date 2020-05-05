@@ -69,7 +69,6 @@ class MakeAnalysis extends React.Component {
             let espn2 = 0
             let correct = 0
             let incorrect = 0
-            let color = "white"
     
             switch (team_1_score_predictions[0] > team_2_score_predictions[0]) {
                 case true:
@@ -105,16 +104,30 @@ class MakeAnalysis extends React.Component {
                 default:
                     break;
             }
-    
+
+            //basing color brightness off of how right/wrong the predictors are, based on a standard deviation of margin of victory of ~9pts
+            let color = "white"
+            let opacity = .4
+            let opacity_corrector = 0
+
+            let margin = 2 * Math.abs(team_1_actual_score - team_2_actual_score)
+            let journalist_1_predicted_margin = Math.abs(team_1_score_predictions[0] - team_2_score_predictions[0])
+            let journalist_2_predicted_margin = Math.abs(team_1_score_predictions[1] - team_2_score_predictions[1])
+            let error = Math.abs(margin - journalist_1_predicted_margin - journalist_2_predicted_margin)
+
+            if (error <= 18) {
+                opacity_corrector = 0.6 * (18 - error)/18
+            }
+
             switch (correct) {
                 case 2:
-                    color = "green"
+                    color = `rgba(0,181,0,${opacity + opacity_corrector})`
                     break;
                 case 1:
-                    color = "yellow"
+                    color = `rgba(255,229,0,${1 - opacity_corrector})`
                     break
                 default:
-                    color = "red"
+                    color = `rgba(230,0,0,${1 - opacity_corrector})`
             }
     
             return (
@@ -128,6 +141,7 @@ class MakeAnalysis extends React.Component {
                     correct={correct}
                     incorrect={incorrect}
                     color={color}
+                    errorMargin={error}
                     />
                 </Col>
             )

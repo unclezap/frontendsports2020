@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { addCorrect } from '../redux'
 
-class ScoreCard extends React.Component {
+class GameCard extends React.Component {
 
     state = {
         clicked: false,
@@ -13,7 +13,7 @@ class ScoreCard extends React.Component {
     }
 
     componentDidMount () {
-        this.props.onAddCorrect(this.props.correct, this.props.incorrect)
+        this.props.onAddCorrect(this.props.correct, this.props.incorrect, this.props.errorMargin)
     }
 
     handleClick = () => {
@@ -30,7 +30,8 @@ class ScoreCard extends React.Component {
 
     removeAnalysis = () => {
         let subtract = -1 * this.props.correct
-        this.props.onAddCorrect(subtract, this.props.correct)
+        let removeErrorMargin = -1 * this.props.errorMargin
+        this.props.onAddCorrect(subtract, this.props.correct, removeErrorMargin)
         this.setState({
             clicked: false,
             height: "3rem",
@@ -41,7 +42,7 @@ class ScoreCard extends React.Component {
 
     restoreAnalysis = () => {
         let subtract = -1 * this.props.correct
-        this.props.onAddCorrect(this.props.correct, subtract)
+        this.props.onAddCorrect(this.props.correct, subtract, this.props.errorMargin)
         this.setState({
             color: this.props.color,
             removed: false
@@ -82,10 +83,8 @@ class ScoreCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-       onAddCorrect: (correct, incorrect) => dispatch(addCorrect(correct, incorrect)) 
+       onAddCorrect: (correct, incorrect, errorMargin) => dispatch(addCorrect(correct, incorrect, errorMargin)) 
     }
 }
 
-export default connect(null, mapDispatchToProps)(ScoreCard)
-
-// export default ScoreCard;
+export default connect(null, mapDispatchToProps)(GameCard)

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { render } from 'react-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
@@ -14,7 +13,7 @@ class LineChart extends React.Component {
                     text: 'Bar Chart!'
                 },
                 xAxis: {
-                    categories: ['Correct', 'Incorrect', 'Total']
+                    categories: ['Correct', 'Incorrect', 'Total', 'Av. Error']
                 },
                 yAxis: {
                     allowDecimals: false,
@@ -25,21 +24,29 @@ class LineChart extends React.Component {
                 },
                 series: [{
                     name: 'Week 1',
-                    data: [0, 0, 0]
+                    data: [0, 0, 0, 0]
                 }]
             },
             clicked: false
         }
 
-    // setHoverData = (event) => {
-    //     this.setState({hoverData: event.target.category})
-    // }
-
     updateSeries = () => {
-        this.setState(prev => ({
-                chartOptions: Object.assign(prev.chartOptions, {series: [{name: 'Week1', data: [this.props.analysis.correct, this.props.analysis.incorrect, this.props.analysis.correct + this.props.analysis.incorrect]}]}),
-                clicked: !prev.clicked
-            })
+        this.setState(prev => {
+                let total = this.props.analysis.correct + this.props.analysis.incorrect
+                return {
+                    chartOptions: Object.assign(prev.chartOptions, {series: [{
+                            name: 'Week1',
+                            data: [
+                                this.props.analysis.correct,
+                                this.props.analysis.incorrect,
+                                total,
+                                (this.props.analysis.errorMargin/total)
+                            ]
+                        }]
+                    }),
+                    clicked: !prev.clicked
+                }
+            }
         );
     }
 
