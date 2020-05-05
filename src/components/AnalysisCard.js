@@ -22,14 +22,11 @@ class AnalysisCard extends React.Component {
             } else {
                 newHeight = "3rem"
             }
-            console.log("setting state")
-            // debugger;
             return {clicked: !prev.clicked, height: newHeight}
         })
     }
 
     getAnalysis = () => {
-        // return makeAnalysis(this.props.predictions, this.props.scores, true)
         return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores}/>
     }
     

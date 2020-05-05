@@ -8,7 +8,8 @@ class ScoreCard extends React.Component {
     state = {
         clicked: false,
         height: "3rem",
-        color: "white"
+        color: this.props.color,
+        removed: false
     }
 
     componentDidMount () {
@@ -28,9 +29,23 @@ class ScoreCard extends React.Component {
     }
 
     removeAnalysis = () => {
-        console.log("hit remove")
         let subtract = -1 * this.props.correct
-        this.props.onAddCorrect(subtract)
+        this.props.onAddCorrect(subtract, this.props.correct)
+        this.setState({
+            clicked: false,
+            height: "3rem",
+            color: "grey",
+            removed: true
+        })
+    }
+
+    restoreAnalysis = () => {
+        let subtract = -1 * this.props.correct
+        this.props.onAddCorrect(this.props.correct, subtract)
+        this.setState({
+            color: this.props.color,
+            removed: false
+        })
     }
 
     render () {
@@ -41,7 +56,7 @@ class ScoreCard extends React.Component {
                     onClick={this.handleClick}
                     className="text-center"
                     style={{ 
-                        background: this.props.color,
+                        background: this.state.color,
                         width: '18rem',
                         height: this.state.height
                     }}
@@ -52,13 +67,13 @@ class ScoreCard extends React.Component {
                             <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[0]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[0]}`}</p>
                             <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[1]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[1]}`}</p>
                             <h6><strong>{`Actual score: ${this.props.game[0]}: ${this.props.team_1_actual_score}, ${this.props.game[1]}: ${this.props.team_2_actual_score}`}</strong></h6>
-                            {/* {this.props.team_1_actual_score > this.props.team_2_actual_score ? this.teamAWins() : this.teamBWins()}  */}
                             <p>{`Espn got ${this.props.correct} correct!`}</p>
                             
                         </div>
                     : null}
                 </Card>
-                {this.state.clicked ? <button type="submit" onClick={this.removeAnalysis} >Remove this analysis!</button> : null}
+                {this.state.clicked && !this.state.removed ? <button type="submit" onClick={this.removeAnalysis} >Remove this analysis!</button> : null}
+                {this.state.clicked && this.state.removed ? <button type="submit" onClick={this.restoreAnalysis} >Return this analysis!</button> : null}
             </div>
         )
     }

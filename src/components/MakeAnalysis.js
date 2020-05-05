@@ -6,10 +6,6 @@ import GameCard from './GameCard'
 
 class MakeAnalysis extends React.Component {
 
-    // increaseCount = (number) => {
-        // this.props.onAddCorrect(number)
-    // }
-
     makeAnalysis = () => {
         let games = []
             let checked_teams = []
@@ -104,7 +100,7 @@ class MakeAnalysis extends React.Component {
                     break;
                 case false:
                     correct = espn2
-                    incorrect = espn2
+                    incorrect = espn1
                     break;
                 default:
                     break;
@@ -121,12 +117,6 @@ class MakeAnalysis extends React.Component {
                     color = "red"
             }
     
-            // console.log("about to increase count")
-            // debugger;
-            // this.increaseCount(correct)
-            // console.log("count increased?")
-            // debugger;
-
             return (
                 <Col key={index}>
                     <GameCard
@@ -148,13 +138,5 @@ class MakeAnalysis extends React.Component {
         return <div>{this.makeAnalysis()}</div>
     }
 }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//        onAddCorrect: (correct) => dispatch(addCorrect(correct)) 
-//     }
-// }
-
-// export default connect(null, mapDispatchToProps)(MakeAnalysis)
 
 export default MakeAnalysis
