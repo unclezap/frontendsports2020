@@ -27,8 +27,7 @@ class AnalysisCard extends React.Component {
     }
 
     getAnalysis = () => {
-        console.log(this.props.batch)
-        return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores}/>
+        return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores} batchId={this.props.batch.id}/>
     }
     
     render () {
@@ -54,10 +53,10 @@ class AnalysisCard extends React.Component {
                      
                 >
                 {this.props.loaded ? <Card.Title onClick={this.handleClick}>{this.props.batch.name}</Card.Title> : null}
-                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked 
+                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked  && this.props.analysis.loaded
                 ? <div>
                     {this.getAnalysis()}
-                    {<BarChart analysis={this.props.analysis}/>}
+                    {<BarChart analysis={this.props.analysis.batch.filter(batch => batch.id === this.props.batch.id)[0]}/>}
                   </div>
                 : null}
                 </Card>
@@ -65,11 +64,11 @@ class AnalysisCard extends React.Component {
         )
     }
 }
-
+///messed something up on line 59 and now nothing loads, possibly the batchId on line 30
 const mapStateToProps = state => {
     return {
         style: state.style,
-        analysis: state.analysis
+        analysis: state.analysis.batch
     }
 }
 

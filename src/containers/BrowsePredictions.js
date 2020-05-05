@@ -20,6 +20,7 @@ class BrowsePredictions extends React.Component {
         if (this.props.batches.loaded === true) {
             return this.props.batches.batches.map((batch, index) => {
                 return <AnalysisCard
+                            key={index}
                             previousPage={"browse"}
                             onGoBack={this.handleGoBack.bind(this)}
                             predictions={batch.predictions}

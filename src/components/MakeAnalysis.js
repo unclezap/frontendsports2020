@@ -140,6 +140,7 @@ class MakeAnalysis extends React.Component {
                     incorrect={incorrect}
                     color={color}
                     errorMargin={error}
+                    batchId={this.props.batchId}
                     />
                 </Col>
             )

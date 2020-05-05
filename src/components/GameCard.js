@@ -13,7 +13,7 @@ class GameCard extends React.Component {
     }
 
     componentDidMount () {
-        this.props.onAddCorrect(this.props.correct, this.props.incorrect, this.props.errorMargin)
+        this.props.onAddCorrect(this.props.correct, this.props.incorrect, this.props.errorMargin, this.props.batchId)
     }
 
     handleClick = () => {
@@ -31,7 +31,7 @@ class GameCard extends React.Component {
     removeAnalysis = () => {
         let subtract = -1 * this.props.correct
         let removeErrorMargin = -1 * this.props.errorMargin
-        this.props.onAddCorrect(subtract, this.props.correct, removeErrorMargin)
+        this.props.onAddCorrect(subtract, this.props.correct, removeErrorMargin, this.props.batchId)
         this.setState({
             clicked: false,
             height: "3rem",
@@ -42,7 +42,7 @@ class GameCard extends React.Component {
 
     restoreAnalysis = () => {
         let subtract = -1 * this.props.correct
-        this.props.onAddCorrect(this.props.correct, subtract, this.props.errorMargin)
+        this.props.onAddCorrect(this.props.correct, subtract, this.props.errorMargin, this.props.batchId)
         this.setState({
             color: this.props.color,
             removed: false
@@ -83,7 +83,7 @@ class GameCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-       onAddCorrect: (correct, incorrect, errorMargin) => dispatch(addCorrect(correct, incorrect, errorMargin)) 
+       onAddCorrect: (correct, incorrect, errorMargin, batchId) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId)) 
     }
 }
 
