@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Container, Card } from 'react-bootstrap';
 // import {makeAnalysis} from '../functions/analysis'
 import MakeAnalysis from './MakeAnalysis'
-import BarChart from '../charts/BarChart'
+import BarChart from '../charts/CorrectIncorrectBarChart'
 
 class AnalysisCard extends React.Component {
 

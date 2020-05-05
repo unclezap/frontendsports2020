@@ -4,8 +4,6 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 class LineChart extends React.Component {
-    // constructor(props) {
-        // super(props)
 
         state = {
             chartOptions: {
@@ -28,34 +26,17 @@ class LineChart extends React.Component {
                 series: [{
                     name: 'Week 1',
                     data: [0, 0, 0]
-                }],
-                plotOptions: {
-                    series: {
-                        points: {
-                            events: {
-                                // mouseOver: this.setHoverData.bind(this.state)
-                            }
-                        }
-                    }
-                }
+                }]
             },
-            // hoverData: null,
             clicked: false
         }
-    // }
 
-    setHoverData = (event) => {
-        this.setState({hoverData: event.target.category})
-    }
+    // setHoverData = (event) => {
+    //     this.setState({hoverData: event.target.category})
+    // }
 
     updateSeries = () => {
         this.setState(prev => ({
-            // books: [...prev.books, { title: "Valid title" }]
-            // const copy = Object.assign({}, obj)
-                // series: [{
-                //     name: 'Week 1',
-                //     data: [this.props.analysis.correct, 6, 18]
-                // }],
                 chartOptions: Object.assign(prev.chartOptions, {series: [{name: 'Week1', data: [this.props.analysis.correct, this.props.analysis.incorrect, this.props.analysis.correct + this.props.analysis.incorrect]}]}),
                 clicked: !prev.clicked
             })
