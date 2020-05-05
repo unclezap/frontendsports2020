@@ -1,4 +1,7 @@
 import {
+    POST_ARTICLE_REQUEST,
+    POST_ARTICLE_SUCCESS,
+    POST_ARTICLE_FAILURE,
     FETCH_BATCHES_REQUEST,
     FETCH_BATCHES_FAILURE,
     FETCH_BATCHES_SUCCESS,
@@ -16,6 +19,52 @@ const headers = () => {
     }
 }
 
+//======= single article actions
+export const postArticle = (article) => {
+    return (dispatch) => {
+        dispatch(postArticleRequest());
+        fetch(`${API_ROOT}/articles`, {
+           method: "POST",
+           headers: headers(),
+           body: JSON.stringify(article)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(postArticleFailure(data.error, data.exception))
+            } else {
+                dispatch(postArticleSuccess(data))
+            }
+        })
+        .catch(error => {
+            dispatch(postArticleFailure(error))
+        })
+    }
+}
+
+export const postArticleRequest = (article) => {
+    return {
+        type: POST_ARTICLE_REQUEST,
+        payload: article
+    }
+}
+
+export const postArticleFailure = (error, exception) => {
+    return {
+        type: POST_ARTICLE_FAILURE,
+        error: error,
+        exception: exception
+    }
+}
+
+export const postArticleSuccess = (article) => {
+    return {
+        type: POST_ARTICLE_SUCCESS,
+        payload: article
+    }
+}
+
+//====== batches actions
 export const fetchBatches = () => {
     return (dispatch) => {
         dispatch(fetchBatchesRequest());
@@ -30,6 +79,9 @@ export const fetchBatches = () => {
             } else {
                 dispatch(fetchBatchesSuccess(data))
             }
+        })
+        .catch(error => {
+            dispatch(fetchBatchesFailure(error))
         })
     }
 }

@@ -24,7 +24,8 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                failure: false
+                failure: false,
+                loaded: false
             }
         case SIGN_IN_FAILURE:
         case CREATE_USER_FAILURE:

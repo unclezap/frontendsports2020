@@ -1,58 +1,58 @@
-import {
-    POST_ARTICLE_REQUEST,
-    POST_ARTICLE_FAILURE,
-    POST_ARTICLE_SUCCESS,
-} from './articleTypes'
+// import {
+//     POST_ARTICLE_REQUEST,
+//     POST_ARTICLE_FAILURE,
+//     POST_ARTICLE_SUCCESS,
+// } from './articleTypes'
 
-const API_ROOT = 'http://localhost:3000/'
+// const API_ROOT = 'http://localhost:3000/'
 
-const token = () => localStorage.getItem("token")
+// const token = () => localStorage.getItem("token")
 
-const headers = () => {
-    return {
-        "Content-Type":"application/json",
-        Accept: "application/json",
-        Authorization: token()
-    }
-}
+// const headers = () => {
+//     return {
+//         "Content-Type":"application/json",
+//         Accept: "application/json",
+//         Authorization: token()
+//     }
+// }
 
-export const postArticle = (article) => {
-    return (dispatch) => {
-        dispatch(postArticleRequest());
-        fetch(`${API_ROOT}/articles`, {
-           method: "POST",
-           headers: headers(),
-           body: JSON.stringify(article)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                dispatch(postArticleFailure(data.error, data.exception))
-            } else {
-                dispatch(postArticleSuccess(data))
-            }
-        })
-    }
-}
+// export const postArticle = (article) => {
+//     return (dispatch) => {
+//         dispatch(postArticleRequest());
+//         fetch(`${API_ROOT}/articles`, {
+//            method: "POST",
+//            headers: headers(),
+//            body: JSON.stringify(article)
+//         })
+//         .then(res => res.json())
+//         .then(data => {
+//             if (data.error) {
+//                 dispatch(postArticleFailure(data.error, data.exception))
+//             } else {
+//                 dispatch(postArticleSuccess(data))
+//             }
+//         })
+//     }
+// }
 
-export const postArticleRequest = (article) => {
-    return {
-        type: POST_ARTICLE_REQUEST,
-        payload: article
-    }
-}
+// export const postArticleRequest = (article) => {
+//     return {
+//         type: POST_ARTICLE_REQUEST,
+//         payload: article
+//     }
+// }
 
-export const postArticleFailure = (error, exception) => {
-    return {
-        type: POST_ARTICLE_FAILURE,
-        error: error,
-        exception: exception
-    }
-}
+// export const postArticleFailure = (error, exception) => {
+//     return {
+//         type: POST_ARTICLE_FAILURE,
+//         error: error,
+//         exception: exception
+//     }
+// }
 
-export const postArticleSuccess = (article) => {
-    return {
-        type: POST_ARTICLE_SUCCESS,
-        payload: article
-    }
-}
+// export const postArticleSuccess = (article) => {
+//     return {
+//         type: POST_ARTICLE_SUCCESS,
+//         payload: article
+//     }
+// }

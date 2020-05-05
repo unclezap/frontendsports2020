@@ -1,5 +1,4 @@
 import React from "react"
-// import PredictionCard from '../components/Predictions';
 import { Container, Row } from 'react-bootstrap';
 import AuthHOC from '../HOC/AuthHOC';
 import { connect } from 'react-redux';
@@ -18,8 +17,8 @@ class BrowsePredictions extends React.Component {
     }
 
     allPredictions = () => {
-        if (this.props.batch.loaded === true) {
-            return this.props.batch.batch.map((batch, index) => {
+        if (this.props.batches.loaded === true) {
+            return this.props.batches.batches.map((batch, index) => {
                 return <AnalysisCard
                             previousPage={"browse"}
                             onGoBack={this.handleGoBack.bind(this)}
@@ -52,10 +51,10 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        failure: state.batch.failure,
-        loading: state.batch.loading,
-        loaded: state.batch.loaded,
-        batch: state.batch,
+        failure: state.batches.failure,
+        loading: state.batches.loading,
+        loaded: state.batches.loaded,
+        batches: state.batches,
         style: state.style
     }
 }

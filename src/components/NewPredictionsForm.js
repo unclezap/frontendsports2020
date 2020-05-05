@@ -7,8 +7,7 @@ import AuthHOC from '../HOC/AuthHOC';
 
 const INITIAL_STATE = {
     fields: {
-        article: "",
-        name: ""
+        article: ""
     },
     submitted: false,
     failure: false,
@@ -41,12 +40,12 @@ class NewPredictionsForm extends React.Component {
     render () {
         return (
             <div style={{background: this.props.color3, display: "flex", alignItems: "center", justifyContent: "center"}}>
-                {this.state.submitted && !this.props.failure && !this.props.loading
+                {this.state.submitted && !this.props.failure && !this.props.loading && this.props.loaded
                 ? <AnalysisCard
                     previousPage={"new"}
                     onGoBack={this.handleGoBack.bind(this)}
-                    predictions={this.props.predictions}
-                    scores={this.props.scores}
+                    predictions={this.props.batch.predictions}
+                    scores={this.props.batch.scores}
                     batch={this.props.batch} 
                     loaded={this.props.loaded}
                  /> 
@@ -65,18 +64,6 @@ class NewPredictionsForm extends React.Component {
                                     onChange={this.handleChange}
                                 />
                             </div>
-                            {/* <div>
-                                <label htmlFor="name">
-                                    Name this prediction:
-                                </label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="optional"
-                                    value={this.state.name}
-                                    onChange={this.handleChange}
-                                />
-                            </div> */}
                             <div>
                                 <Button type="submit">
                                     Analyze predictions
@@ -101,13 +88,13 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        failure: state.article.failure,
-        loading: state.article.loading,
-        loaded: state.article.loaded,
-        style: state.style,
-        batch: state.article.article.batch,
-        predictions: state.article.article.predictions,
-        scores: state.article.article.scores,
+        failure: state.batches.failure,
+        loading: state.batches.loading,
+        loaded: state.batches.loaded,
+        batch: state.batches.batches[0],
+        // predictions: state.batches.batches[0].predictions,
+        // scores: state.batches.batches[0].scores,
+        style: state.style
     }
 }
 

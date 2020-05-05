@@ -77,6 +77,9 @@ export const postLogin = (uservalue) => {
                 dispatch(signInSuccess(data))
             }
         })
+        .catch(error => {
+            dispatch(signInFailure(error))
+        })
     }
 }
 

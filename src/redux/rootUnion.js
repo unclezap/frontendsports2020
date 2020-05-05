@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
-import articleReducer from './article/articleReducer'
+// import articleReducer from './article/articleReducer'
 import styleReducer from './style/styleReducer'
 import userReducer from './user/userReducer'
 import batchReducer from './batch/batchReducer'
 import analysisReducer from './analysis/analysisReducer'
 
 const rootReducer = combineReducers({
-    article: articleReducer,
+    // article: articleReducer,
     style: styleReducer,
     user: userReducer,
-    batch: batchReducer,
+    batches: batchReducer,
     analysis: analysisReducer
 })
 

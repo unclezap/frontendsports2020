@@ -27,10 +27,12 @@ class AnalysisCard extends React.Component {
     }
 
     getAnalysis = () => {
+        console.log(this.props.batch)
         return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores}/>
     }
     
     render () {
+
         return (
             <Container fluid >
                 <div style={{textAlign: "center"}}>

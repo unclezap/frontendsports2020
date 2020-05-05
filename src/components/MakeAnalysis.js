@@ -1,8 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import GameCard from './GameCard'
-// import { connect } from 'react-redux'
-// import { addCorrect } from '../redux'
 
 class MakeAnalysis extends React.Component {
 
