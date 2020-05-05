@@ -51,7 +51,7 @@ class BarChart extends React.Component {
     }
 
     render () {
-        const { chartOptions, hoverData, series, clicked } = this.state
+        const { chartOptions, clicked } = this.state
         
         return (
             <div>

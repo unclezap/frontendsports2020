@@ -2,28 +2,26 @@ import {
     UPDATE_CORRECT_PREDICTIONS
 } from './analysisTypes'
 
-const batchSkeleton = {
+const batchSkeleton = () => ({
     batchId: 0,
     correct: 0,
     incorrect: 0,
     errorMargin: 0,
-}
+})
 
 const initialState = {
-    batch: [batchSkeleton],
+    batch: [],
     loaded: false
 }
 
 const batchReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_CORRECT_PREDICTIONS:
-            console.log("===================")
 
-            console.log("state before", state)
             let updatedBatch = state.batch.filter(batch => batch.batchId === action.batchId)
 
             if (updatedBatch.length === 0) {
-                updatedBatch = batchSkeleton
+                updatedBatch = batchSkeleton()
             } else {
                 updatedBatch = updatedBatch[0]
             }
@@ -33,12 +31,7 @@ const batchReducer = (state = initialState, action) => {
             updatedBatch.incorrect += action.incorrect
             updatedBatch.errorMargin += action.errorMargin
 
-            console.log("state after",state)
-            console.log("other batches", [...state.batch.filter(batch => batch.batchId !== action.batchId)])
-            console.log("updatedBatch", updatedBatch)
-
             return {
-                ...state,
                 batch: [...state.batch.filter(batch => batch.batchId !== action.batchId), updatedBatch],
                 loaded: true
             }
