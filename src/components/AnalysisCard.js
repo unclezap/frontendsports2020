@@ -7,10 +7,10 @@ import MakeAnalysis from './MakeAnalysis'
 import BarChart from '../charts/CorrectIncorrectBarChart'
 
 class AnalysisCard extends React.Component {
-
     state = {
         clicked: false,
         height: "3rem"
+        // thisAnalysisBatch: this.props.analysis.batch.filter(batch => batch.id === this.props.batch.id)
     }
 
     handleClick = (event) => {
@@ -31,6 +31,16 @@ class AnalysisCard extends React.Component {
     }
     
     render () {
+        //individual GameCards on the lowest level send analysis to the state.  Need for that data to get back to the store before displaying analysis info or passing that particular analysis info as props
+        let theCircleIsNowComplete = false
+
+        let thisParticularAnalysis = this.props.analysis.batch.filter(batch => batch.batchId === this.props.batch.id)
+
+        if (thisParticularAnalysis.length > 0) {
+            theCircleIsNowComplete = true
+            // console.log("thisParticularAnalysis",thisParticularAnalysis)
+            thisParticularAnalysis = thisParticularAnalysis[0]
+        } 
 
         return (
             <Container fluid >
@@ -42,7 +52,7 @@ class AnalysisCard extends React.Component {
                     onClick={(event) => this.props.onGoBack(event)}
                 >Go Back</Link>
                 </div>
-                {this.props.analysis.loaded ? <h1>{`ESPN got ${this.props.analysis.correct} correct in total!`}</h1> : null}
+                {theCircleIsNowComplete ? <h1>{`ESPN got ${thisParticularAnalysis.correct} correct in total!`}</h1> : null}
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,
@@ -53,10 +63,10 @@ class AnalysisCard extends React.Component {
                      
                 >
                 {this.props.loaded ? <Card.Title onClick={this.handleClick}>{this.props.batch.name}</Card.Title> : null}
-                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked  && this.props.analysis.loaded
+                {this.props.loaded && this.props.predictions.length > 0 && this.state.clicked 
                 ? <div>
                     {this.getAnalysis()}
-                    {<BarChart analysis={this.props.analysis.batch.filter(batch => batch.id === this.props.batch.id)[0]}/>}
+                    {<BarChart analysis={thisParticularAnalysis}/>}
                   </div>
                 : null}
                 </Card>
@@ -64,11 +74,11 @@ class AnalysisCard extends React.Component {
         )
     }
 }
-///messed something up on line 59 and now nothing loads, possibly the batchId on line 30
+
 const mapStateToProps = state => {
     return {
         style: state.style,
-        analysis: state.analysis.batch
+        analysis: state.analysis
     }
 }
 

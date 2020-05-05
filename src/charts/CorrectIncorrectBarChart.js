@@ -2,7 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-class LineChart extends React.Component {
+class BarChart extends React.Component {
 
         state = {
             chartOptions: {
@@ -67,4 +67,4 @@ class LineChart extends React.Component {
     }
 }
 
-export default LineChart
+export default BarChart

@@ -15,9 +15,6 @@ class MakeAnalysis extends React.Component {
                     }
                 })
 
-        // console.log(games)
-        // debugger;
-    
         return <Row>{this.makeGameCards(games, this.props.predictions, this.props.scores)}</Row>
     }
     
@@ -105,7 +102,7 @@ class MakeAnalysis extends React.Component {
 
             //basing color brightness off of how right/wrong the predictors are, based on a standard deviation of margin of victory of ~9pts
             let color = "white"
-            let opacity = .4
+            let opacity = .2
             let opacity_corrector = 0
 
             let margin = 2 * Math.abs(team_1_actual_score - team_2_actual_score)
@@ -114,7 +111,7 @@ class MakeAnalysis extends React.Component {
             let error = Math.abs(margin - journalist_1_predicted_margin - journalist_2_predicted_margin)
 
             if (error <= 18) {
-                opacity_corrector = 0.6 * (18 - error)/18
+                opacity_corrector = 0.8 * (18 - error)/18
             }
 
             switch (correct) {
