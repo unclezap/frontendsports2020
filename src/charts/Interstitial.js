@@ -79,12 +79,12 @@ class Interstitial extends React.Component{
 }
 
 
-const mapStateToProps = state => {
-    return {
-      analysis: state.analysis
-    }
-  }
+// const mapStateToProps = state => {
+//     return {
+//       analysis: state.analysis
+//     }
+//   }
 
 
-
-  export default connect(mapStateToProps)(Interstitial)
+export default Interstitial
+  // export default connect(mapStateToProps)(Interstitial)

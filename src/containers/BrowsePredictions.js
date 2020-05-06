@@ -18,10 +18,16 @@ class BrowsePredictions extends React.Component {
         // console.log("GO BACK!")
     }
 
+    reRender = () => {
+        console.log("rerendering")
+        this.setState({state: this.state})
+    }
+
     allPredictions = () => {
         if (this.props.batches.loaded === true) {
             return this.props.batches.batches.map((batch, index) => {
                 return <AnalysisCard
+                            onReRender={this.reRender.bind(this)}
                             key={index}
                             previousPage={"browse"}
                             onGoBack={this.handleGoBack.bind(this)}
@@ -38,7 +44,7 @@ class BrowsePredictions extends React.Component {
         return (
             <Container fluid="md">
                     {/* <GanttChart2 /> */}
-                    <Interstitial />
+                    <Interstitial analysis={this.props.analysis}/>
                 <Row>
                     {this.allPredictions()}
                 </Row>
