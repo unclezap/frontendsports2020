@@ -28,9 +28,28 @@ class GanttChart2 extends React.Component {
       yAxis: {
         uniqueNames: true,
       },
-      series: []
+      series:  [
+        {
+          data: [
+            {
+              name: "New England Patriots Results",
+              team: "Patriots",
+              id: "patriots_results",
+              dependency: "",
+              opacity: 1.0,
+              color: 'rgb(0,0,255)',
+              start: 1,
+              milestone: true
+            },
+          ]
+        }
+      ]
     }
   };
+
+  componentWillReceiveProps() {
+    this.buildOptions()
+  }
 
   buildOptions = () => {
       console.log("hi")
@@ -94,26 +113,12 @@ class GanttChart2 extends React.Component {
   render() {
     return (
       <div>
-        {this.props.analysis.loaded ?
-        <div>
-        {this.state.options.series === [] 
-        ? <div>
-            <HighchartsReact
-            constructorType={"ganttChart"}
-            highcharts={Highcharts}
-            options={this.state.options}
-            />
-            {this.buildOptions()}
-          </div>
-        : <HighchartsReact
+        <HighchartsReact
         constructorType={"ganttChart"}
         highcharts={Highcharts}
         options={this.state.options}
         />
-        }</div>
-        : <p>waiting to load</p>}
         
-        {/* <Button onClick={this.buildChart}>Click Me!</Button> */}
       </div>
 
     );
