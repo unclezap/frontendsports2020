@@ -27,7 +27,7 @@ class AnalysisCard extends React.Component {
     }
 
     getAnalysis = () => {
-        return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores} batchId={this.props.batch.id}/>
+        return <MakeAnalysis predictions={this.props.predictions} scores={this.props.scores} batchId={this.props.batch.id} week={this.props.batch.week}/>
     }
     
     render () {

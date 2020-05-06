@@ -11,8 +11,6 @@ import BrowsePredictions from './containers/BrowsePredictions'
 import MyAccount from './components/MyAccount'
 import SignUp from './components/SignUp'
 
-import GanttChart2 from './charts/GanttChart2'
-
 class App extends React.Component {
 
   componentDidMount() {
@@ -57,7 +55,6 @@ class App extends React.Component {
           </div>
           <div style={{backgroundImage: this.props.style.backgroundImage2, height: "270px"}}></div>
           <div style={{backgroundImage: this.props.style.backgroundImage3, height: "300px"}}></div>
-          <GanttChart2 />
         </Router>
     );
   }

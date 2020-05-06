@@ -4,7 +4,7 @@ import AuthHOC from '../HOC/AuthHOC';
 import { connect } from 'react-redux';
 import { fetchBatches } from '../redux';
 import AnalysisCard from '../components/AnalysisCard'
-import GanttChart2 from './charts/GanttChart2'
+import GanttChart2 from '../charts/GanttChart2'
 
 class BrowsePredictions extends React.Component {
 
@@ -36,8 +36,8 @@ class BrowsePredictions extends React.Component {
     render() {
         return (
             <Container fluid="md">
-                <Row>
                     <GanttChart2 />
+                <Row>
                     {this.allPredictions()}
                 </Row>
             </Container>    

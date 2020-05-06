@@ -2,18 +2,19 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { addCorrect } from '../redux'
+import { removeCorrect } from '../redux'
 
 class GameCard extends React.Component {
 
     state = {
         clicked: false,
         height: "3rem",
-        color: this.props.color,
+        color: this.props.thisGame.color,
         removed: false
     }
 
     componentDidMount () {
-        this.props.onAddCorrect(this.props.correct, this.props.incorrect, this.props.errorMargin, this.props.batchId)
+        this.props.onAddCorrect(this.props.thisGame.correct, this.props.thisGame.incorrect, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame)
     }
 
     handleClick = () => {
@@ -29,9 +30,10 @@ class GameCard extends React.Component {
     }
 
     removeAnalysis = () => {
-        let subtract = -1 * this.props.correct
-        let removeErrorMargin = -1 * this.props.errorMargin
-        this.props.onAddCorrect(subtract, this.props.correct, removeErrorMargin, this.props.batchId)
+        let subtract = -1 * this.props.thisGame.correct
+        let removeErrorMargin = -1 * this.props.thisGame.errorMargin
+        console.log("removeAnalysis")
+        this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame)
         this.setState({
             clicked: false,
             height: "3rem",
@@ -41,10 +43,10 @@ class GameCard extends React.Component {
     }
 
     restoreAnalysis = () => {
-        let subtract = -1 * this.props.correct
-        this.props.onAddCorrect(this.props.correct, subtract, this.props.errorMargin, this.props.batchId)
+        let subtract = -1 * this.props.thisGame.correct
+        this.props.onAddCorrect(this.props.thisGame.correct, subtract, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame)
         this.setState({
-            color: this.props.color,
+            color: this.props.thisGame.color,
             removed: false
         })
     }
@@ -71,14 +73,14 @@ class GameCard extends React.Component {
                         height: this.state.height
                     }}
                 >
-                    <h5>{`Predictions for ${this.props.game[0]}-${this.props.game[1]}`}</h5>
+                    <h5>{`Predictions for ${this.props.thisGame.game[0]}-${this.props.thisGame.game[1]}`}</h5>
                     {this.state.clicked ?
                         <div>
-                            <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[0]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[0]}`}</p>
-                            <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[1]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[1]}`}</p>
-                            <h6><strong>{`Actual score: ${this.props.game[0]}: ${this.props.team_1_actual_score}, ${this.props.game[1]}: ${this.props.team_2_actual_score}`}</strong></h6>
-                            <p>{`Espn got ${this.props.correct} correct!`}</p>
-                            <p>{`The average error for predicted game margin was ${this.props.errorMargin/2}.`}</p>
+                            <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[0]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[0]}`}</p>
+                            <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[1]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[1]}`}</p>
+                            <h6><strong>{`Actual score: ${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_actual_score}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_actual_score}`}</strong></h6>
+                            <p>{`Espn got ${this.props.thisGame.correct} correct!`}</p>
+                            <p>{`The average error for predicted game margin was ${this.props.thisGame.errorMargin/2}.`}</p>
                         </div>
                     : null}
                 </Card>
@@ -92,7 +94,8 @@ class GameCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-       onAddCorrect: (correct, incorrect, errorMargin, batchId) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId)) 
+       onAddCorrect: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId, thisGame)),
+       onRemoveCorrect: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(removeCorrect(correct, incorrect, errorMargin, batchId, thisGame, true))
     }
 }
 

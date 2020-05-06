@@ -111,10 +111,10 @@ class MakeAnalysis extends React.Component {
             let margin = 2 * Math.abs(team_1_actual_score - team_2_actual_score)
             let journalist_1_predicted_margin = Math.abs(team_1_score_predictions[0] - team_2_score_predictions[0])
             let journalist_2_predicted_margin = Math.abs(team_1_score_predictions[1] - team_2_score_predictions[1])
-            let error = Math.abs(margin - journalist_1_predicted_margin - journalist_2_predicted_margin)
+            let errorMargin = Math.abs(margin - journalist_1_predicted_margin - journalist_2_predicted_margin)
 
-            if (error <= 18) {
-                opacity_corrector = 0.8 * (18 - error)/18
+            if (errorMargin <= 18) {
+                opacity_corrector = 0.8 * (18 - errorMargin)/18
             }
 
             switch (correct) {
@@ -127,20 +127,25 @@ class MakeAnalysis extends React.Component {
                 default:
                     color = `rgba(230,0,0,${1 - opacity_corrector})`
             }
-    
+
+        let batchId = this.props.batchId
+        let week = this.props.week
+        let thisGame = {game, team_1_score_predictions, team_2_score_predictions, team_1_actual_score, team_2_actual_score, correct, incorrect, errorMargin, color, batchId, week}
+
             return (
                 <Col key={index}>
                     <GameCard
-                    game={game}
-                    team_1_score_predictions={team_1_score_predictions}
-                    team_2_score_predictions={team_2_score_predictions}
-                    team_1_actual_score={team_1_actual_score}
-                    team_2_actual_score={team_2_actual_score}
-                    correct={correct}
-                    incorrect={incorrect}
-                    color={color}
-                    errorMargin={error}
-                    batchId={this.props.batchId}
+                    // game={game}
+                    // team_1_score_predictions={team_1_score_predictions}
+                    // team_2_score_predictions={team_2_score_predictions}
+                    // team_1_actual_score={team_1_actual_score}
+                    // team_2_actual_score={team_2_actual_score}
+                    // correct={correct}
+                    // incorrect={incorrect}
+                    // color={color}
+                    // errorMargin={errorMargin}
+                    // batchId={this.props.batchId}
+                    thisGame={thisGame}
                     />
                 </Col>
             )
