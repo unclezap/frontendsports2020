@@ -1,6 +1,7 @@
 import {
     UPDATE_CORRECT_PREDICTIONS,
-    REMOVE_CORRECT_PREDICTIONS
+    REMOVE_CORRECT_PREDICTIONS,
+    LOADING_FINISHED
 } from './analysisTypes'
 
 const batchSkeleton = () => ({
@@ -44,6 +45,12 @@ const batchReducer = (state = initialState, action) => {
             return {
                 batch: [...state.batch.filter(batch => batch.batchId !== action.batchId), updatedBatch],
                 loaded: true
+            }
+            break;
+        case LOADING_FINISHED:
+            return {
+                ...state,
+                loaded: false
             }
         default:
             return state;

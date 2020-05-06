@@ -1,6 +1,7 @@
 import {
     UPDATE_CORRECT_PREDICTIONS,
-    REMOVE_CORRECT_PREDICTIONS
+    REMOVE_CORRECT_PREDICTIONS,
+    LOADING_FINISHED
 } from './analysisTypes'
 
 export const addCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame) => {
@@ -24,5 +25,11 @@ export const removeCorrect = (numberCorrect, numberIncorrect, errorMargin, batch
         batchId: batchId,
         thisGame: thisGame,
         remove: remove
+    }
+}
+
+export const doneLoading = () => {
+    return {
+        type: LOADING_FINISHED
     }
 }

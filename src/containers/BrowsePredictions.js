@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchBatches } from '../redux';
 import AnalysisCard from '../components/AnalysisCard'
 import GanttChart2 from '../charts/GanttChart2'
+import Interstitial from '../charts/Interstitial'
 
 class BrowsePredictions extends React.Component {
 
@@ -36,7 +37,8 @@ class BrowsePredictions extends React.Component {
     render() {
         return (
             <Container fluid="md">
-                    <GanttChart2 />
+                    {/* <GanttChart2 /> */}
+                    <Interstitial />
                 <Row>
                     {this.allPredictions()}
                 </Row>
