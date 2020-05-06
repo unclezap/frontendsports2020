@@ -30,8 +30,8 @@ class GanttChart2 extends React.Component {
       yAxis: {
         uniqueNames: true,
       },
-      // series: this.props.series
-      series: []
+      series: this.props.series
+      // series: []
       // series: [
       //   {
       //     data: [
@@ -173,7 +173,7 @@ class GanttChart2 extends React.Component {
         {<HighchartsReact
           constructorType={"ganttChart"}
           highcharts={Highcharts}
-          options={this.props.options}
+          options={this.state.options}
         />}
         <p>YO</p>
         {/* <Button onClick={this.buildChart}>Click Me!</Button> */}

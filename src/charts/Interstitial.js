@@ -8,11 +8,7 @@ for (let i=0; i< 22; i++) {
   weeks.push(`Week ${i}`)
 }
 
-class Interstitial extends React.Component{
-
-    state = {
-
-            options: {
+const testoptions = {
               tooltip: {
                 enabled: true,
                 formatter: function() {
@@ -30,13 +26,42 @@ class Interstitial extends React.Component{
               yAxis: {
                 uniqueNames: true,
               },
-              series: this.props.series
+              series: []
         
-            },
-        done: false
-    }
+            }
 
-    buildChart = () => {
+class Interstitial extends React.Component{
+  constructor(props) {
+    super(props)
+
+
+    // state = {
+
+    //         options: {
+    //           tooltip: {
+    //             enabled: true,
+    //             formatter: function() {
+    //               //
+    //               return `${this.point.hoverOver}`;
+    //             }
+    //           },
+    //           title: {
+    //             //
+    //             text: '2019 Season'
+    //           },
+    //           xAxis: [{
+    //             categories: weeks,
+    //           }],
+    //           yAxis: {
+    //             uniqueNames: true,
+    //           },
+    //           series: []
+        
+    //         },
+    //     done: false
+    // }
+
+    const buildChart = () => {
         // console.log("build")
           let dataArray = []
           this.props.analysis.batch.forEach(batch => {
@@ -92,23 +117,28 @@ class Interstitial extends React.Component{
           seriesObject.data = dataArray
           let seriesArray = [seriesObject]
         //   console.log(seriesArray)
-          this.setState(prev => {
+          // this.setState(prev => {
                 
                 return {
-                    options: Object.assign(prev.options, {series: seriesArray}),
-                    done: true
+                  options: Object.assign(testoptions, {series: seriesArray}),
+                  // options: Object.assign(prev.options, {series: seriesArray}),
+                  // done: true
                 }  
             //  return {series: seriesArray, done: true}
-            })
-        //   return this.launchChart(seriesArray)
+            // })
+          // return this.launchChart(seriesArray)
         // return this.launchChart()
       }
 
-    //   launchChart = (seriesValues) => {
+      this.state = {options: buildChart(), done: false}
+    
+    }
+
+      // launchChart = (seriesValues) => {
     launchChart = () => {
 
         //     // this.props.onDoneLoading()
-    console.log("launching", this.state.series)
+    // console.log("launching", this.state.series)
     return <div>{true ? <GanttChart2 options={this.state.options}/>: null}</div>
 
     // return <div><GanttChart2 series={seriesValues}/></div>
@@ -126,8 +156,9 @@ class Interstitial extends React.Component{
         // }
         return (
             <div>
-                {this.props.analysis.loaded && !this.state.done ? this.buildChart(): <h2>loading....</h2>}
-                {this.state.done ? this.launchChart():<h2>still loading...</h2>}
+                {/* {this.props.analysis.loaded && !this.state.done ? this.buildChart(): <h2>loading....</h2>} */}
+                
+                {/* {this.state.done ? this.launchChart():<h2>still loading...</h2>} */}
                 {this.props.analysis.batch !== undefined ? <p>{this.props.analysis.batch.length}</p>: <p>no hi</p>}
             </div>
         )
