@@ -37,8 +37,8 @@ class BrowsePredictions extends React.Component {
     render() {
         return (
             <Container fluid="md">
-                    {/* <GanttChart2 /> */}
-                    <Interstitial />
+                    <GanttChart2 />
+                    {/* <Interstitial /> */}
                 <Row>
                     {this.allPredictions()}
                 </Row>
