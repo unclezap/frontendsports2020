@@ -4,6 +4,7 @@ import AuthHOC from '../HOC/AuthHOC';
 import { connect } from 'react-redux';
 import { fetchBatches } from '../redux';
 import AnalysisCard from '../components/AnalysisCard'
+import GanttChart2 from './charts/GanttChart2'
 
 class BrowsePredictions extends React.Component {
 
@@ -36,6 +37,7 @@ class BrowsePredictions extends React.Component {
         return (
             <Container fluid="md">
                 <Row>
+                    <GanttChart2 />
                     {this.allPredictions()}
                 </Row>
             </Container>    
@@ -56,7 +58,8 @@ const mapStateToProps = state => {
         loading: state.batches.loading,
         loaded: state.batches.loaded,
         batches: state.batches,
-        style: state.style
+        style: state.style,
+        analysis: state.analysis
     }
 }
 
