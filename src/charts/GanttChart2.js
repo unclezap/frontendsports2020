@@ -6,30 +6,10 @@ import HighchartsReact from "highcharts-react-official";
 
 // HC_more(Highcharts);
 
-// var today = new Date(),
-// day = 1000 * 60 * 60 * 24,
-
-//   // Utility functions
-//   dateFormat = Highcharts.dateFormat,
-//   defined = Highcharts.defined,
-//   isObject = Highcharts.isObject,
-//   reduce = Highcharts.reduce;
-
-// // Set to 00:00:00:000 today
-// today.setUTCHours(0);
-// today.setUTCMinutes(0);
-// today.setUTCSeconds(0);
-// today.setUTCMilliseconds(0);
-// today = today.getTime();
-
-// const weeks = () => {
   let weeks = []
   for (let i=0; i< 22; i++) {
     weeks.push(`Week ${i}`)
   }
-  // return array
-// }
-
 
 class GanttChart2 extends React.Component {
   constructor(props) {
@@ -37,6 +17,12 @@ class GanttChart2 extends React.Component {
 
     this.state = {
       options: {
+        tooltip: {
+          enabled: true,
+          formatter: function() {
+            return `Week ${this.point.team}`;
+          }
+        },
         title: {
           text: '2019 Season'
         },
@@ -53,6 +39,7 @@ class GanttChart2 extends React.Component {
                 name: "New offices",
                 id: "new_offices",
                 owner: "Peter",
+                team: "Tigers",
                 start: 1,
                 end: 7
               },
@@ -112,9 +99,9 @@ class GanttChart2 extends React.Component {
                 milestone: true,
                 owner: "Peter"
               }
-            ],
-          }, 
-        ],
+            ]
+          }
+        ]
       }
     };
   }
