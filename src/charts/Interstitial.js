@@ -3,14 +3,41 @@ import GanttChart2 from './GanttChart2';
 import { connect } from 'react-redux';
 import { doneLoading } from '../redux';
 
+let weeks = []
+for (let i=0; i< 22; i++) {
+  weeks.push(`Week ${i}`)
+}
+
 class Interstitial extends React.Component{
 
     state = {
+
+            options: {
+              tooltip: {
+                enabled: true,
+                formatter: function() {
+                  //
+                  return `${this.point.hoverOver}`;
+                }
+              },
+              title: {
+                //
+                text: '2019 Season'
+              },
+              xAxis: [{
+                categories: weeks,
+              }],
+              yAxis: {
+                uniqueNames: true,
+              },
+              series: this.props.series
+        
+            },
         done: false
     }
 
     buildChart = () => {
-        console.log("build")
+        // console.log("build")
           let dataArray = []
           this.props.analysis.batch.forEach(batch => {
             return batch.games.forEach(oneGame => {
@@ -20,6 +47,8 @@ class Interstitial extends React.Component{
               let team2 = oneGame.game[1]
               let team1Score = oneGame.team_1_actual_score
               let team2Score = oneGame.team_2_actual_score
+
+
               
               resultTeam1.name = team1
               resultTeam1.team = team1
@@ -41,14 +70,18 @@ class Interstitial extends React.Component{
               resultTeam1.opacity = opacity
               resultTeam2.opacity = opacity
       
-              if (team1Score > oneGame.team2Score) {
+              if (team1Score > team2Score) {
                 resultTeam2.dependency = resultTeam1.id
                 resultTeam1.color = 'rgb(0,0,255)'
                 resultTeam2.color = 'rgb(0,0,0)'
+                resultTeam1.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Win'
+                resultTeam2.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Loss'
               } else {
                 resultTeam1.dependency = resultTeam2.id
                 resultTeam1.color = 'rgb(0,0,0)'
                 resultTeam2.color = 'rgb(0,0,255)'
+                resultTeam1.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Loss'
+                resultTeam1.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Win'
               }
       
               dataArray.push(resultTeam1)
@@ -58,21 +91,44 @@ class Interstitial extends React.Component{
           let seriesObject = {}
           seriesObject.data = dataArray
           let seriesArray = [seriesObject]
-          console.log(seriesArray)
-          this.setState({series: seriesArray, done: true})
-          
+        //   console.log(seriesArray)
+          this.setState(prev => {
+                
+                return {
+                    options: Object.assign(prev.options, {series: seriesArray}),
+                    done: true
+                }  
+            //  return {series: seriesArray, done: true}
+            })
+        //   return this.launchChart(seriesArray)
+        // return this.launchChart()
       }
 
+    //   launchChart = (seriesValues) => {
     launchChart = () => {
-        // this.props.onDoneLoading()
-        return <div><GanttChart2 series={this.state.series}/></div>
+
+        //     // this.props.onDoneLoading()
+    console.log("launching", this.state.series)
+    return <div>{true ? <GanttChart2 options={this.state.options}/>: null}</div>
+
+    // return <div><GanttChart2 series={seriesValues}/></div>
+        // return <div><GanttChart2 series={this.state.series}/></div>
     }
 
+    // updateState = () => {
+    //     this.setState({})
+    //     return <p>set!</p>
+    // }
+
     render () {
+        // if (this.props.analysis.loaded && this.props.analysis.games !== undefined) {
+        //     console.log(this.props.analysis.games)
+        // }
         return (
             <div>
                 {this.props.analysis.loaded && !this.state.done ? this.buildChart(): <h2>loading....</h2>}
                 {this.state.done ? this.launchChart():<h2>still loading...</h2>}
+                {this.props.analysis.batch !== undefined ? <p>{this.props.analysis.batch.length}</p>: <p>no hi</p>}
             </div>
         )
     }

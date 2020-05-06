@@ -17,7 +17,7 @@ class GanttChart2 extends React.Component {
         enabled: true,
         formatter: function() {
           //
-          return `Week ${this.point.team}`;
+          return `${this.point.hoverOver}`;
         }
       },
       title: {
@@ -30,7 +30,8 @@ class GanttChart2 extends React.Component {
       yAxis: {
         uniqueNames: true,
       },
-      series: this.props.series
+      // series: this.props.series
+      series: []
       // series: [
       //   {
       //     data: [
@@ -99,6 +100,11 @@ class GanttChart2 extends React.Component {
       // ]
     }
   };
+
+  componentDidMount() {
+    console.log("hi")
+    console.log(this.state.options.series)
+  }
   
   // buildChart = () => {
   //   console.log("build")
@@ -164,11 +170,12 @@ class GanttChart2 extends React.Component {
 
     return (
       <div>
-        <HighchartsReact
+        {<HighchartsReact
           constructorType={"ganttChart"}
           highcharts={Highcharts}
-          options={this.state.options}
-        />
+          options={this.props.options}
+        />}
+        <p>YO</p>
         {/* <Button onClick={this.buildChart}>Click Me!</Button> */}
       </div>
       

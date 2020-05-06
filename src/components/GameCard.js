@@ -10,7 +10,8 @@ class GameCard extends React.Component {
         clicked: false,
         height: "3rem",
         color: this.props.thisGame.color,
-        removed: false
+        removed: false,
+        dispatched: false
     }
 
     componentDidMount () {
@@ -60,7 +61,17 @@ class GameCard extends React.Component {
     //float property
     //float left or right
     //also a clear property (clear left/right/both)
+
+    // sendDate = () => {
+    //     this.props.onAddCorrect(this.props.thisGame.correct, this.props.thisGame.incorrect, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame)
+    //     this.setState({dispatched: true})
+    // }
+
     render () {
+
+        // if (!this.state.dispatched) {
+            // this.sendDate()
+        // }
 
         return (
             <div>
@@ -80,7 +91,7 @@ class GameCard extends React.Component {
                             <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[1]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[1]}`}</p>
                             <h6><strong>{`Actual score: ${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_actual_score}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_actual_score}`}</strong></h6>
                             <p>{`Espn got ${this.props.thisGame.correct} correct!`}</p>
-                            <p>{`The average error for predicted game margin was ${this.props.thisGame.errorMargin/2}.`}</p>
+                            <p>{`The average error for predicted game margin was `}<b>{`${this.props.thisGame.errorMargin/2}.`}</b></p>
                         </div>
                     : null}
                 </Card>
