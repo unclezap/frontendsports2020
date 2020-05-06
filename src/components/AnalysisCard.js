@@ -14,7 +14,7 @@ class AnalysisCard extends React.Component {
     }
 
     handleClick = (event) => {
-        // event.preventDefault()
+        event.preventDefault()
         this.setState(prev => {
             let newHeight
             if (prev.height === "3rem") {
