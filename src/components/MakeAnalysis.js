@@ -14,6 +14,9 @@ class MakeAnalysis extends React.Component {
                         games.push([prediction.team_a,prediction.team_b]) 
                     }
                 })
+//prepopulate w/ four columns
+//add a blank card in to make up the room
+//min-width sets it to 4 cards
 
         return <Row>{this.makeGameCards(games, this.props.predictions, this.props.scores)}</Row>
     }

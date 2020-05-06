@@ -49,6 +49,15 @@ class GameCard extends React.Component {
         })
     }
 
+    //when clicked, add a margin property around the div
+    //should get the div to expand with it
+    //margin-bottom
+
+    //bootstrap has some rules about how this works
+    //flexbox system - each box has a # of rows and columns
+    //float property
+    //float left or right
+    //also a clear property (clear left/right/both)
     render () {
 
         return (
@@ -69,7 +78,7 @@ class GameCard extends React.Component {
                             <p>{`${this.props.game[0]}: ${this.props.team_1_score_predictions[1]}, ${this.props.game[1]}: ${this.props.team_2_score_predictions[1]}`}</p>
                             <h6><strong>{`Actual score: ${this.props.game[0]}: ${this.props.team_1_actual_score}, ${this.props.game[1]}: ${this.props.team_2_actual_score}`}</strong></h6>
                             <p>{`Espn got ${this.props.correct} correct!`}</p>
-                            <p>{`The average game margin error was ${this.props.errorMargin/2}.`}</p>
+                            <p>{`The average error for predicted game margin was ${this.props.errorMargin/2}.`}</p>
                         </div>
                     : null}
                 </Card>
