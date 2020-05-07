@@ -2,6 +2,7 @@ import React from "react";
 import Highcharts from "highcharts/highcharts-gantt";
 import HighchartsReact from "highcharts-react-official";
 import { connect } from 'react-redux';
+import ErrorBoundary from './ErrorBoundary'
 
 let weeks = []
 for (let i=0; i< 22; i++) {
@@ -28,17 +29,28 @@ class GanttChart2 extends React.Component {
       yAxis: {
         uniqueNames: true,
       },
-      series: this.props.series
+      series: {
+        name: "New England Patriots Results",
+        team: "Patriots",
+        id: "patriots_results",
+        dependency: "",
+        opacity: 1.0,
+        color: 'rgb(0,0,255)',
+        start: 1,
+        milestone: true
+      }
     }
   };
 
   showChart = () => {
     return (
+      <ErrorBoundary>
       <HighchartsReact
           constructorType={"ganttChart"}
           highcharts={Highcharts}
           options={this.props.options}
         />
+      </ErrorBoundary>
     )
   }
 
@@ -59,9 +71,11 @@ const mapStateToProps = state => {
     weeks.push(`Wk ${i}`)
   }
 
+  // let order = ["Patriots", "Bills", "Jets", "Dolphins", "Ravens", "Steelers", "Browns", "Bengals", "Texans", "Titans", "Colts", "Jaguars", "Chiefs", "Broncos", "Raiders", "Chargers", "Eagles", "Cowboys", "Giants", "Washington", "Packers", "Vikings", "Bears", "Lions", "Saints", "Falcons", "Buccaneers", "Panthers", "49ers", "Seahawks", "Rams", "Cardinals"];
+
     let dataArray = []
     state.analysis.batch.forEach(batch => {
-      return batch.games.forEach(oneGame => {
+      batch.games.forEach(oneGame => {
         let resultTeam1 = {}
         let resultTeam2 = {}
         let team1 = oneGame.game[0]
@@ -73,14 +87,14 @@ const mapStateToProps = state => {
         resultTeam1.team = team1
         resultTeam1.id = team1.toLowerCase() + "_" + "results" + `${oneGame.week}`
         resultTeam1.start = oneGame.week
-        resultTeam1.end = oneGame.week
+        resultTeam1.end = 21
         resultTeam1.milestone = true
 
         resultTeam2.name = team2
         resultTeam2.team = team2
-        resultTeam2.id = team2.toLowerCase() + "_" + "results" + `${oneGame.week}`
+        resultTeam2.id = team2.toLowerCase() + "_" + "results" + "_" + `${oneGame.week}`
         resultTeam2.start = oneGame.week
-        resultTeam2.end = oneGame.week
+        resultTeam2.end = 21
         resultTeam2.milestone = true
 
         let margin = Math.abs(team1Score - team2Score)
@@ -111,6 +125,7 @@ const mapStateToProps = state => {
         dataArray.push(resultTeam2)
       })
     })
+
     let seriesObject = {}
     seriesObject.data = dataArray
     let seriesArray = [seriesObject]
