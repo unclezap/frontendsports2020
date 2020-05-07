@@ -24,6 +24,7 @@ class BrowsePredictions extends React.Component {
         if (this.props.batches.loaded === true) {
             return this.props.batches.batches.map((batch, index) => {
                 return <AnalysisCard
+                            display="flex"
                             key={index}
                             previousPage={"browse"}
                             onGoBack={this.handleGoBack.bind(this)}
@@ -38,9 +39,9 @@ class BrowsePredictions extends React.Component {
 
     render() {
         return (
-            <Container fluid="md">
+            <Container display="flex">
                 <GanttChart2 />
-                <Row>
+                <Row display="flex">
                     {this.allPredictions()}
                 </Row>
             </Container>    

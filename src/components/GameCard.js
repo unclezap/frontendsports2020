@@ -29,7 +29,6 @@ class GameCard extends React.Component {
 
     handleClick = (event) => {
         if (event.target.innerText !== "Change the past" && event.innerText !== "Restore the past") {
-            console.log("not restoring")
             this.setState(prev => {
                 let newHeight
                 if (prev.height === "3rem") {
@@ -100,9 +99,7 @@ class GameCard extends React.Component {
     }
 
     restoreThePast = (event) => {
-        console.log("restoring")
         if (event.target.innerText === "Restore the past") {
-            console.log("actually restoring the past")
             let subtract = -1 * (2 - this.props.thisGame.correct)
             let add = this.props.thisGame.incorrect
             let removeErrorMargin = this.props.thisGame.errorMargin

@@ -8,19 +8,22 @@ import BarChart from '../charts/CorrectIncorrectBarChart'
 class AnalysisCard extends React.Component {
     state = {
         clicked: false,
-        height: "3rem"
+        // height: "3rem"
     }
 
     handleClick = (event) => {
         event.preventDefault()
         this.setState(prev => {
             let newHeight
-            if (prev.height === "3rem") {
-                newHeight = "25rem"
-            } else {
-                newHeight = "3rem"
-            }
-            return {clicked: !prev.clicked, height: newHeight}
+            let display
+            // if (prev.height === "3rem") {
+                // newHeight = "25rem"
+                // display="flex"
+            // } else {
+                // newHeight = "3rem"
+            // }
+            // return {clicked: !prev.clicked, height: newHeight}
+            return {clicked: !prev.clicked, display: "flex"}
         })
     }
 
@@ -40,21 +43,22 @@ class AnalysisCard extends React.Component {
         } 
 
         return (
-            <Container fluid >
-                <div style={{textAlign: "center"}}>
-                <Link
+            <Container fluid display="flex">
+                <div style={{alignItems: "left", justifyContent: "center", display: "flex"}}>
+                {/* <div style={{textAlign: "center"}}> */}
+                {this.props.previousPage === "new" ? <Link
                     to={`/${this.props.previousPage}`}
                     className="btn btn-outline-dark"
                     style={{width: "18rem"}}
                     onClick={(event) => this.props.onGoBack(event)}
-                >Go Back</Link>
+                >Go Back</Link> : null}
                 </div>
                 {theCircleIsNowComplete ? <h1>{`ESPN got ${Math.round(100*thisParticularAnalysis.correct/(thisParticularAnalysis.correct + thisParticularAnalysis.incorrect))}% correct!`}</h1> : null}
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,
                         width: '80rem',
-                        height: this.state.height
+                        // height: this.state.height
                      }}
                      className="text-center"
                      
