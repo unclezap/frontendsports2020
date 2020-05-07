@@ -42,7 +42,7 @@ class GameCard extends React.Component {
     removeAnalysis = () => {
         let subtract = -1 * this.props.thisGame.correct
         let removeErrorMargin = -1 * this.props.thisGame.errorMargin
-        this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame)
+        this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame, true)
         this.setState({
             clicked: false,
             height: "3rem",
@@ -83,7 +83,7 @@ class GameCard extends React.Component {
             let subtract = -1 * this.props.thisGame.incorrect
             let removeErrorMargin = -1 * this.props.thisGame.errorMargin
 
-            this.props.onRemoveCorrect(add, subtract, removeErrorMargin, this.props.thisGame.batchId, newGame)
+            this.props.onRemoveCorrect(add, subtract, removeErrorMargin, this.props.thisGame.batchId, newGame, false)
             this.setState({
                 correct: 2,
                 incorrect: 0,
@@ -142,7 +142,7 @@ class GameCard extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
        onAddCorrect: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId, thisGame)),
-       onRemoveCorrect: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(removeCorrect(correct, incorrect, errorMargin, batchId, thisGame, true))
+       onRemoveCorrect: (correct, incorrect, errorMargin, batchId, thisGame, toggleOpacityOff) => dispatch(removeCorrect(correct, incorrect, errorMargin, batchId, thisGame, toggleOpacityOff))
     }
 }
 

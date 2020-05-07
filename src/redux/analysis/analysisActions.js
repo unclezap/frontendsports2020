@@ -15,8 +15,12 @@ export const addCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId,
     }
 }
 
-export const removeCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove) => {
-    thisGame.opacity = 0
+export const removeCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove, toggleOpacityOff) => {
+    if (toggleOpacityOff) {
+        thisGame.opacity = 0
+        console.log("toggling")
+        console.log(thisGame.opacity)
+    } 
     return {
         type: REMOVE_CORRECT_PREDICTIONS,
         correct: numberCorrect,
