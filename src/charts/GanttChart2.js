@@ -98,22 +98,22 @@ const mapStateToProps = state => {
         resultTeam2.milestone = true
 
         let margin = Math.abs(team1Score - team2Score)
-        let opacity = 1
-        if (margin <= 14) {
-          opacity = 1 - (0.9 * (14 - margin)/14)  
-        }
-        resultTeam1.opacity = opacity
-        resultTeam2.opacity = opacity
+        // let opacity = 1
+        // if (margin <= 14) {
+        //   opacity = 1 - (0.9 * (14 - margin)/14)  
+        // }
+        resultTeam1.opacity = oneGame.opacity
+        resultTeam2.opacity = oneGame.opacity
         
         if (team1Score > team2Score) {
-          resultTeam1.dependency = [resultTeam2.id]
+          // resultTeam1.dependency = [resultTeam2.id]
           // resultTeam2.dependency = resultTeam1.id
           resultTeam1.color = 'rgb(0,0,255)'
           resultTeam2.color = 'rgb(0,0,0)'
           resultTeam1.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Win'
           resultTeam2.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Loss'
         } else {
-          resultTeam2.dependency = [resultTeam1.id]
+          // resultTeam2.dependency = [resultTeam1.id]
           // resultTeam1.dependency = resultTeam2.id
           resultTeam1.color = 'rgb(0,0,0)'
           resultTeam2.color = 'rgb(0,0,255)'

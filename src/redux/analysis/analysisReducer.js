@@ -36,7 +36,7 @@ const batchReducer = (state = initialState, action) => {
             updatedBatch.errorMargin += action.errorMargin
 
             if (action.remove) {
-                updatedBatch.games = updatedBatch.games.filter(gameObject => gameObject.game[0] !== action.thisGame.game[0])
+                updatedBatch.games = [...updatedBatch.games.filter(gameObject => gameObject.game[0] !== action.thisGame.game[0]).flat(),action.thisGame]
 
             } else {
                 updatedBatch.games = [...updatedBatch.games, action.thisGame]

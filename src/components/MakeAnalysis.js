@@ -103,10 +103,10 @@ class MakeAnalysis extends React.Component {
                     break;
             }
 
-            //basing color brightness off of how right/wrong the predictors are, based on a standard deviation of margin of victory of ~9pts
+            //basing transparency off of how right/wrong the predictors are, based on a standard deviation of margin of victory of ~9pts
             let color = "white"
-            let opacity = .2
-            let opacity_corrector = 0
+            let transparency = .2
+            let transparency_corrector = 0
 
             let margin = 2 * Math.abs(team_1_actual_score - team_2_actual_score)
             let journalist_1_predicted_margin = Math.abs(team_1_score_predictions[0] - team_2_score_predictions[0])
@@ -114,23 +114,33 @@ class MakeAnalysis extends React.Component {
             let errorMargin = Math.abs(margin - journalist_1_predicted_margin - journalist_2_predicted_margin)
 
             if (errorMargin <= 18) {
-                opacity_corrector = 0.8 * (18 - errorMargin)/18
+                transparency_corrector = 0.8 * (18 - errorMargin)/18
             }
+
+            //opacity tracks strength of win/loss, used in gantt chart
+
+            let opacity = 1
+            if (margin <= 28) {
+                opacity = 1 - (0.9 * (28 - margin)/28)  
+              }
 
             switch (correct) {
                 case 2:
-                    color = `rgba(0,181,0,${opacity + opacity_corrector})`
+                    transparency = transparency + transparency_corrector
+                    color = `rgba(0,181,0,${transparency})`
                     break;
                 case 1:
-                    color = `rgba(255,229,0,${1 - opacity_corrector})`
+                    transparency = 1 - transparency_corrector
+                    color = `rgba(255,229,0,${transparency})`
                     break
                 default:
-                    color = `rgba(230,0,0,${1 - opacity_corrector})`
+                    transparency = 1 - transparency_corrector
+                    color = `rgba(230,0,0,${transparency})`
             }
 
         let batchId = this.props.batchId
         let week = this.props.week
-        let thisGame = {game, team_1_score_predictions, team_2_score_predictions, team_1_actual_score, team_2_actual_score, correct, incorrect, errorMargin, color, batchId, week}
+        let thisGame = {game, team_1_score_predictions, team_2_score_predictions, team_1_actual_score, team_2_actual_score, correct, incorrect, errorMargin, color, batchId, week, transparency, opacity}
 
             return (
                 <Col key={index}>

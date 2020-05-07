@@ -16,7 +16,7 @@ export const addCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId,
 }
 
 export const removeCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove) => {
-    console.log("removeCorrect Action")
+    thisGame.opacity = 0
     return {
         type: REMOVE_CORRECT_PREDICTIONS,
         correct: numberCorrect,
