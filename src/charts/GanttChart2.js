@@ -22,13 +22,69 @@ class GanttChart2 extends React.Component {
   render() {
     return (
       <div>
-      { this.showChart() }
+      { this.props.loaded ? this.showChart() : null}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
+//loadedChecker not really performing up to snuff right now
+  let loadedChecker = false
+
+  let chartOptionsObjectMaker = (theData) =>  {
+
+    // if (theData[0].data.map((row) => {
+    //
+    //best one so far
+    if ( theData[0].data.map((row) => {
+      if (Object.keys.length >= 8) {
+          return row
+        }
+      }).length === theData[0].data.map((row) => {
+      return row
+    }).length) {
+      loadedChecker = true
+    }
+    //
+    //second attempt
+    // let gamesLength = 0
+    // state.analysis.batch.forEach((batch) => {
+    //   gamesLength += batch.games.length
+    // })
+
+    // if (theData[0].data.map((row) => {
+    //   if (Object.keys(row).length >=8) {
+    //     return row
+    //   }
+    // }).length === gamesLength) {
+    //   loadedChecker = true
+    // }
+    //
+    //basic
+    // loadedChecker = true
+
+    return {
+      tooltip: {
+        enabled: true,
+        formatter: function() {
+          //
+          return `${this.point.hoverOver}`;
+        }
+      },
+      title: {
+        //
+        text: '2019 Season'
+      },
+      xAxis: [{
+        categories: weeks,
+      }],
+      yAxis: {
+        uniqueNames: true,
+      },
+      series: theData
+    }
+  }
   
   let weeks = []
   for (let i=0; i< 22; i++) {
@@ -140,29 +196,32 @@ const mapStateToProps = state => {
     let seriesObject = {}
     seriesObject.data = dataArray
     let seriesArray = [seriesObject]
-    let chartOptionsObject =  {
-      tooltip: {
-        enabled: true,
-        formatter: function() {
-          //
-          return `${this.point.hoverOver}`;
-        }
-      },
-      title: {
-        //
-        text: '2019 Season'
-      },
-      xAxis: [{
-        categories: weeks,
-      }],
-      yAxis: {
-        uniqueNames: true,
-      },
-      series: seriesArray
-    }
+    // let chartOptionsObject =  {
+    //   tooltip: {
+    //     enabled: true,
+    //     formatter: function() {
+    //       //
+    //       return `${this.point.hoverOver}`;
+    //     }
+    //   },
+    //   title: {
+    //     //
+    //     text: '2019 Season'
+    //   },
+    //   xAxis: [{
+    //     categories: weeks,
+    //   }],
+    //   yAxis: {
+    //     uniqueNames: true,
+    //   },
+    //   series: seriesArray
+    // }, loadedChecker = true
+
+    let chartOptionsObject = chartOptionsObjectMaker(seriesArray)
 
   return {
-    options: chartOptionsObject
+    options: chartOptionsObject,
+    loaded: loadedChecker
   }
 }
 

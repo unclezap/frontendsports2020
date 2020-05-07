@@ -1,7 +1,8 @@
 import {
     UPDATE_CORRECT_PREDICTIONS,
     REMOVE_CORRECT_PREDICTIONS,
-    LOADING_FINISHED
+    LOADING_FINISHED,
+    CLEAR_ANALYSIS
 } from './analysisTypes'
 
 const batchSkeleton = () => ({
@@ -52,6 +53,8 @@ const batchReducer = (state = initialState, action) => {
                 ...state,
                 loaded: false
             }
+        case CLEAR_ANALYSIS:
+            return initialState
         default:
             return state;
     }

@@ -5,34 +5,24 @@ import { connect } from 'react-redux';
 import { fetchBatches } from '../redux';
 import AnalysisCard from '../components/AnalysisCard'
 import GanttChart2 from '../charts/GanttChart2'
-// import Interstitial from '../charts/Interstitial'
 import { addChartObject } from '../redux'
+import { clearAnalysis } from '../redux'
 
 class BrowsePredictions extends React.Component {
 
     state = {chartDone: false}
 
     componentDidMount() {
-        console.log("mounting")
         this.props.onFetchBatches()
     }
 
     handleGoBack = (event) => {
-        // event.preventDefault()
-        // console.log("GO BACK!")
     }
-
-    // reRender = () => {
-    //     console.log("rerendering")
-    //     this.setState(prev => {
-    //         return {chartDone: false}})
-    // }
 
     allPredictions = () => {
         if (this.props.batches.loaded === true) {
             return this.props.batches.batches.map((batch, index) => {
                 return <AnalysisCard
-                            // onReRender={this.reRender.bind(this)}
                             key={index}
                             previousPage={"browse"}
                             onGoBack={this.handleGoBack.bind(this)}
@@ -60,8 +50,9 @@ class BrowsePredictions extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
+        onClearAnalysis: () => dispatch(clearAnalysis()),
         onFetchBatches: () => dispatch(fetchBatches()),
-        onAddChartObject: (chartObject) => dispatch(addChartObject(chartObject))      
+        onAddChartObject: (chartObject) => dispatch(addChartObject(chartObject)),
     }
 }
 
