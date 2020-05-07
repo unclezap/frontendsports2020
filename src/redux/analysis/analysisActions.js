@@ -49,7 +49,7 @@ export const changeThePast = (numberCorrect, numberIncorrect, errorMargin, batch
 }
 
 export const restoreThePast = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove) => {
-    //peel out the old game from within thisGame
+    console.log("restoring the past")
     return {
         type: RESTORE_THE_PAST,
         correct: numberCorrect,

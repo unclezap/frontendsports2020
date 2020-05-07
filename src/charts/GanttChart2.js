@@ -135,8 +135,8 @@ const mapStateToProps = state => {
 
         resultTeam1.opacity = oneGame.opacity
         resultTeam2.opacity = oneGame.opacity
-        predTeam1.opacity = oneGame.transparency/2 + 0.1
-        predTeam2.opacity = oneGame.transparency/2 + 0.1
+        predTeam1.opacity = oneGame.transparency/2 + 0.2
+        predTeam2.opacity = oneGame.transparency/2 + 0.2
 
         if (team1Score > team2Score) {
           resultTeam1.color = 'rgb(0,0,255)'
@@ -147,6 +147,9 @@ const mapStateToProps = state => {
             resultTeam1.dependency = [resultTeam2.id]
             predTeam1.hoverOver += 'Blowout <br/>'
             predTeam2.hoverOver += 'Blowout <br>'
+            } else {
+              resultTeam1.dependency = ""
+              resultTeam2.dependency = ""
             }
         } else {
           resultTeam1.color = 'rgb(0,0,0)'
@@ -157,6 +160,9 @@ const mapStateToProps = state => {
             resultTeam2.dependency = [resultTeam1.id]
             predTeam1.hoverOver += 'Blowout <br>'
             predTeam2.hoverOver += 'Blowout <br>'
+            } else {
+              resultTeam1.dependency = ""
+              resultTeam2.dependency = ""
             }
         }
 

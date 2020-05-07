@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { addCorrect } from '../redux'
 import { removeCorrect } from '../redux'
 import { changeThePast } from '../redux'
+import { restoreThePast } from '../redux'
 
 class GameCard extends React.Component {
 
@@ -101,7 +102,20 @@ class GameCard extends React.Component {
     restoreThePast = (event) => {
         console.log("restoring")
         if (event.target.innerText === "Restore the past") {
-            // this.props.onChangeThePast
+            console.log("actually restoring the past")
+            let subtract = -1 * (2 - this.props.thisGame.correct)
+            let add = this.props.thisGame.incorrect
+            let removeErrorMargin = this.props.thisGame.errorMargin
+            this.props.onChangeThePast(subtract, add, removeErrorMargin, this.props.thisGame.batchId,this.props.thisGame, true)
+            this.setState({
+                correct: this.props.thisGame.correct,
+                incorrect: this.props.thisGame.incorrect,
+                errorMargin: this.props.thisGame.errorMargin,
+                team_1_actual_score: this.props.thisGame.team_1_actual_score,
+                team_2_actual_score: this.props.thisGame.team_2_actual_score,
+                color: this.props.thisGame.color,
+                changedPast: false
+            })
         }
     }
 
@@ -137,7 +151,7 @@ class GameCard extends React.Component {
                             <p>{`Espn got ${this.state.correct} correct!`}</p>
                             <p>{`The average error for predicted game margin was `}<b>{`${this.state.errorMargin/2}.`}</b></p>
                             {!this.state.changedPast && !this.state.removed ? <button onClick={(event) => this.changeThePast(event)} className="button">Change the past</button> : null}
-                            {this.state.changedPast ? <button onClick={(event) => this.restoreThePast(event)}>Restore the Past</button>: null}
+                            {this.state.changedPast ? <button onClick={(event) => this.restoreThePast(event)}>Restore the past</button>: null}
                         </div>
                     : null}
                 </Card>
@@ -153,7 +167,8 @@ const mapDispatchToProps = dispatch => {
     return {
        onAddCorrect: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId, thisGame, remove)),
        onRemoveCorrect: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(removeCorrect(correct, incorrect, errorMargin, batchId, thisGame, remove)),
-       onChangeThePast: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(changeThePast(correct, incorrect, errorMargin, batchId, thisGame, remove))
+       onChangeThePast: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(changeThePast(correct, incorrect, errorMargin, batchId, thisGame, remove)),
+       onRestoreThePast: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(restoreThePast(correct, incorrect, errorMargin, batchId, thisGame, remove))
     }
 }
 
