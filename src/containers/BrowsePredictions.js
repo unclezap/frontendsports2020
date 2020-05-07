@@ -12,6 +12,7 @@ class BrowsePredictions extends React.Component {
     state = {chartDone: false}
 
     componentDidMount() {
+        console.log("mounting")
         this.props.onFetchBatches()
     }
 
@@ -125,7 +126,7 @@ class BrowsePredictions extends React.Component {
         //   return chartOptionsObject
         
             this.setState({options:chartOptionsObject, chartDone: true})
-        this.forceUpdate()
+        // this.forceUpdate()
 
         //     if (this.state.options !== undefined) {
         //         console.log("length above 0")
