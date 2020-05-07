@@ -23,7 +23,8 @@ class BrowsePredictions extends React.Component {
 
     reRender = () => {
         console.log("rerendering")
-        this.setState({chartDone: false})
+        this.setState(prev => {
+            return {...prev, chartDone: false}})
     }
 
     allPredictions = () => {
@@ -123,20 +124,11 @@ class BrowsePredictions extends React.Component {
             series: seriesArray
           }
           console.log(chartOptionsObject)
-        //   return chartOptionsObject
-        
+        //   let localObject = JSON.stringify(chartOptionsObject)
+            // localStorage.setItem("options", localObject)
+            this.setState({chartDone: true})
             this.setState({options:chartOptionsObject, chartDone: true})
-        // this.forceUpdate()
-
-        //     if (this.state.options !== undefined) {
-        //         console.log("length above 0")
-        //         this.setState({chartDone: true})
-
-        //         //     return <div><GanttChart2 options={chartOptionsObject}/></div>
-        // } else {
-        //     console.log("length below zero")
-        //     return <p>waiting for objects to load</p>
-        // }
+            
     }
         
 
@@ -144,6 +136,7 @@ class BrowsePredictions extends React.Component {
             console.log("launching")
             console.log("state", this.state)
             return <div><GanttChart2 options={this.state.options}/></div>
+            //had options prop in there before localStorage idea
         }
 
     render() {

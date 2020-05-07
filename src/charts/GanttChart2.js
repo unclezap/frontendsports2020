@@ -8,6 +8,9 @@ let weeks = []
 for (let i=0; i< 22; i++) {
   weeks.push(`Week ${i}`)
 }
+
+// let opt = localStorage.getItem("options")
+
 class GanttChart2 extends React.Component {
   state = {
     options: {
@@ -32,17 +35,23 @@ class GanttChart2 extends React.Component {
     }
   };
 
+  showChart = () => {
+    return (
+      <HighchartsReact
+          constructorType={"ganttChart"}
+          highcharts={Highcharts}
+          // options={JSON.parse(localStorage.getItem("options"))}
+          options={this.props.options}
+        />
+    )
+  }
+
+
   render() {
     return (
       <div>
-        <HighchartsReact
-          constructorType={"ganttChart"}
-          highcharts={Highcharts}
-          options={this.props.options}
-        />
-        {/* <Button onClick={this.buildChart}>Click Me!</Button> */}
+      { this.props.options ? this.showChart() : null}
       </div>
-
     );
   }
 }
@@ -55,3 +64,4 @@ class GanttChart2 extends React.Component {
 export default GanttChart2
 
 // export default connect(mapStateToProps)(GanttChart2)
+
