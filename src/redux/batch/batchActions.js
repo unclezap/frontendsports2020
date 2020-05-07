@@ -26,7 +26,7 @@ export const postArticle = (article) => {
         fetch(`${API_ROOT}/articles`, {
            method: "POST",
            headers: headers(),
-           body: JSON.stringify(article)
+           body: JSON.stringify({article: article})
         })
         .then(res => res.json())
         .then(data => {

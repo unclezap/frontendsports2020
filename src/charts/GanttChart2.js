@@ -86,8 +86,8 @@ const mapStateToProps = state => {
     }
   }
   
-  let weeks = []
-  for (let i=0; i< 22; i++) {
+  let weeks = [""]
+  for (let i=1; i< 18; i++) {
     weeks.push(`Wk ${i}`)
   }
 
