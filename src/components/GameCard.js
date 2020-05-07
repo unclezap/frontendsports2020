@@ -10,7 +10,7 @@ class GameCard extends React.Component {
 
     state = {
         clicked: false,
-        height: "3rem",
+        // height: "3rem",
         color: this.props.thisGame.color,
         removed: false,
         dispatched: false,
@@ -31,12 +31,13 @@ class GameCard extends React.Component {
         if (event.target.innerText !== "Change the past" && event.innerText !== "Restore the past") {
             this.setState(prev => {
                 let newHeight
-                if (prev.height === "3rem") {
-                    newHeight = "19rem"
-                } else {
-                    newHeight = "3rem"
-                }
-                return {clicked: !prev.clicked, height: newHeight}
+                // if (prev.height === "3rem") {
+                    // newHeight = "19rem"
+                // } else {
+                    // newHeight = "3rem"
+                // }
+                // return {clicked: !prev.clicked, height: newHeight}
+                return {clicked: !prev.clicked}
             })
         }
     }
@@ -47,7 +48,7 @@ class GameCard extends React.Component {
         this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame, true)
         this.setState({
             clicked: false,
-            height: "3rem",
+            // height: "3rem",
             color: "grey",
             removed: true
         })
@@ -136,7 +137,8 @@ class GameCard extends React.Component {
                     style={{ 
                         background: this.state.color,
                         width: '18rem',
-                        height: this.state.height
+                        // height: this.state.height
+                        display: "flex"
                     }}
                 >
                     <h5>{`Predictions for ${this.props.thisGame.game[0]}-${this.props.thisGame.game[1]}`}</h5>
