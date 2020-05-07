@@ -42,13 +42,13 @@ class AnalysisCard extends React.Component {
         } 
 
         return (
-            <Container fluid display="flex">
-                <div style={{alignItems: "left", justifyContent: "center", display: "flex"}}>
+            <Container fluid display="flex" style={{textAlign: "center", justifyContent: "center"}}>
+                <div style={{ justifyContent: "center", display: "flex"}}>
                 {/* <div style={{textAlign: "center"}}> */}
                 {this.props.previousPage === "new" ? <Link
                     to={`/${this.props.previousPage}`}
                     className="btn btn-outline-dark"
-                    style={{width: "18rem"}}
+                    // style={{width: "18rem"}}
                     onClick={(event) => this.props.onGoBack(event)}
                 >Go Back</Link> : null}
                 </div>
@@ -56,7 +56,7 @@ class AnalysisCard extends React.Component {
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,
-                        width: '80rem',
+                        // width: '80rem',
                         // height: this.state.height
                      }}
                      className="text-center"

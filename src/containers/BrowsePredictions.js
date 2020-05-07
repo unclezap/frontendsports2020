@@ -40,7 +40,7 @@ class BrowsePredictions extends React.Component {
     render() {
         return (
             <Container display="flex">
-                <GanttChart2 />
+                {this.props.analysis.loaded ? <GanttChart2 /> : null}
                 <Row display="flex">
                     {this.allPredictions()}
                 </Row>
