@@ -4,6 +4,23 @@ import GameCard from './GameCard'
 
 class MakeAnalysis extends React.Component {
 
+    makeColumns = () => {
+        console.log("++++++++++")
+        let extraCards = (this.props.predictions.length/2) % 4
+        if (extraCards === 0) {
+            extraCards = 4
+        }
+
+        let array = []
+        for (let i=0; i < 4 - extraCards; i++) {
+            array.push(1)
+        }
+        console.log("array", array)
+
+        return array.map(count => {return <Col></Col>})
+
+    }
+
     makeAnalysis = () => {
         let games = []
             let checked_teams = []
@@ -18,7 +35,8 @@ class MakeAnalysis extends React.Component {
 //add a blank card in to make up the room
 //min-width sets it to 4 cards
 
-        return <Row>{this.makeGameCards(games, this.props.predictions, this.props.scores)}</Row>
+
+        return <Row>{this.makeGameCards(games, this.props.predictions, this.props.scores)}{this.makeColumns()}</Row>
     }
     
     makeGameCards = (games, predictions, scores) => {

@@ -32,7 +32,6 @@ class AnalysisCard extends React.Component {
     }
     
     render () {
-        //individual GameCards on the lowest level send analysis to the state.  Need for that data to get back to the store before displaying analysis info or passing that particular analysis info as props
         let theCircleIsNowComplete = false
 
         let thisParticularAnalysis = this.props.analysis.batch.filter(batch => batch.batchId === this.props.batch.id)
