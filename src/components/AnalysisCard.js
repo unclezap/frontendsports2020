@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { Container, Card } from 'react-bootstrap';
-// import {makeAnalysis} from '../functions/analysis'
 import MakeAnalysis from './MakeAnalysis'
 import BarChart from '../charts/CorrectIncorrectBarChart'
 
@@ -10,7 +9,6 @@ class AnalysisCard extends React.Component {
     state = {
         clicked: false,
         height: "3rem"
-        // thisAnalysisBatch: this.props.analysis.batch.filter(batch => batch.id === this.props.batch.id)
     }
 
     handleClick = (event) => {
@@ -24,7 +22,6 @@ class AnalysisCard extends React.Component {
             }
             return {clicked: !prev.clicked, height: newHeight}
         })
-        this.props.onReRender()
     }
 
     getAnalysis = () => {
@@ -39,7 +36,6 @@ class AnalysisCard extends React.Component {
 
         if (thisParticularAnalysis.length > 0) {
             theCircleIsNowComplete = true
-            // console.log("thisParticularAnalysis",thisParticularAnalysis)
             thisParticularAnalysis = thisParticularAnalysis[0]
         } 
 
@@ -53,7 +49,7 @@ class AnalysisCard extends React.Component {
                     onClick={(event) => this.props.onGoBack(event)}
                 >Go Back</Link>
                 </div>
-                {theCircleIsNowComplete ? <h1>{`ESPN got ${thisParticularAnalysis.correct} correct in total!`}</h1> : null}
+                {theCircleIsNowComplete ? <h1>{`ESPN got ${Math.round(100*thisParticularAnalysis.correct/(thisParticularAnalysis.correct + thisParticularAnalysis.incorrect))}% correct!`}</h1> : null}
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,

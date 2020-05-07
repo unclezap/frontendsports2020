@@ -2,11 +2,10 @@ import React from "react";
 import Highcharts from "highcharts/highcharts-gantt";
 import HighchartsReact from "highcharts-react-official";
 import { connect } from 'react-redux';
-import Button from 'react-bootstrap/Button'
 
 let weeks = []
 for (let i=0; i< 22; i++) {
-  weeks.push(`Week ${i}`)
+  weeks.push(`Wk ${i}`)
 }
 
 class GanttChart2 extends React.Component {
@@ -33,11 +32,7 @@ class GanttChart2 extends React.Component {
     }
   };
 
-
-
   showChart = () => {
-    console.log("chart making function" )
-    console.log(this.props.options)
     return (
       <HighchartsReact
           constructorType={"ganttChart"}
@@ -49,7 +44,6 @@ class GanttChart2 extends React.Component {
 
 
   render() {
-    console.log("rendering", this.props)
     return (
       <div>
       { this.showChart() }
@@ -57,12 +51,12 @@ class GanttChart2 extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   
-  console.log("build")
   let weeks = []
   for (let i=0; i< 22; i++) {
-    weeks.push(`Week ${i}`)
+    weeks.push(`Wk ${i}`)
   }
 
     let dataArray = []
@@ -86,30 +80,31 @@ const mapStateToProps = state => {
         resultTeam2.team = team2
         resultTeam2.id = team2.toLowerCase() + "_" + "results" + `${oneGame.week}`
         resultTeam2.start = oneGame.week
+        resultTeam2.end = oneGame.week
         resultTeam2.milestone = true
 
         let margin = Math.abs(team1Score - team2Score)
         let opacity = 1
         if (margin <= 14) {
-          opacity = 0.1 + (0.9 * (14 - margin)/14)  
+          opacity = 1 - (0.9 * (14 - margin)/14)  
         }
         resultTeam1.opacity = opacity
         resultTeam2.opacity = opacity
         
         if (team1Score > team2Score) {
-          // resultTeam1.dependency = resultTeam2.id
+          resultTeam1.dependency = [resultTeam2.id]
           // resultTeam2.dependency = resultTeam1.id
           resultTeam1.color = 'rgb(0,0,255)'
           resultTeam2.color = 'rgb(0,0,0)'
           resultTeam1.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Win'
           resultTeam2.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Loss'
         } else {
-          // resultTeam2.dependency = resultTeam2.id
+          resultTeam2.dependency = [resultTeam1.id]
           // resultTeam1.dependency = resultTeam2.id
           resultTeam1.color = 'rgb(0,0,0)'
           resultTeam2.color = 'rgb(0,0,255)'
           resultTeam1.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Loss'
-          resultTeam1.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Win'
+          resultTeam2.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Win'
         }
 
         dataArray.push(resultTeam1)

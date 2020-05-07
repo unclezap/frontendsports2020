@@ -22,17 +22,17 @@ class BrowsePredictions extends React.Component {
         // console.log("GO BACK!")
     }
 
-    reRender = () => {
-        console.log("rerendering")
-        this.setState(prev => {
-            return {chartDone: false}})
-    }
+    // reRender = () => {
+    //     console.log("rerendering")
+    //     this.setState(prev => {
+    //         return {chartDone: false}})
+    // }
 
     allPredictions = () => {
         if (this.props.batches.loaded === true) {
             return this.props.batches.batches.map((batch, index) => {
                 return <AnalysisCard
-                            onReRender={this.reRender.bind(this)}
+                            // onReRender={this.reRender.bind(this)}
                             key={index}
                             previousPage={"browse"}
                             onGoBack={this.handleGoBack.bind(this)}
