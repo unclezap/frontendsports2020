@@ -4,43 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import { connect } from 'react-redux';
 import ErrorBoundary from './ErrorBoundary'
 
-let weeks = []
-for (let i=0; i< 22; i++) {
-  weeks.push(`Wk ${i}`)
-}
-
 class GanttChart2 extends React.Component {
-  state = {
-    options: {
-      tooltip: {
-        enabled: true,
-        formatter: function() {
-          //
-          return `${this.point.hoverOver}`;
-        }
-      },
-      title: {
-        //
-        text: '2019 Season'
-      },
-      xAxis: [{
-        categories: weeks,
-      }],
-      yAxis: {
-        uniqueNames: true,
-      },
-      series: {
-        name: "New England Patriots Results",
-        team: "Patriots",
-        id: "patriots_results",
-        dependency: "",
-        opacity: 1.0,
-        color: 'rgb(0,0,255)',
-        start: 1,
-        milestone: true
-      }
-    }
-  };
 
   showChart = () => {
     return (
@@ -78,10 +42,14 @@ const mapStateToProps = state => {
       batch.games.forEach(oneGame => {
         let resultTeam1 = {}
         let resultTeam2 = {}
+        let predTeam1 = {}
+        let predTeam2 = {}
         let team1 = oneGame.game[0]
         let team2 = oneGame.game[1]
         let team1Score = oneGame.team_1_actual_score
         let team2Score = oneGame.team_2_actual_score
+        let team1PredScore = (oneGame.team_1_score_predictions[0] + oneGame.team_1_score_predictions[1])/2
+        let team2PredScore = (oneGame.team_2_score_predictions[0] + oneGame.team_2_score_predictions[1])/2
 
         resultTeam1.name = team1
         resultTeam1.team = team1
@@ -97,32 +65,75 @@ const mapStateToProps = state => {
         resultTeam2.end = 21
         resultTeam2.milestone = true
 
-        let margin = Math.abs(team1Score - team2Score)
-        // let opacity = 1
-        // if (margin <= 14) {
-        //   opacity = 1 - (0.9 * (14 - margin)/14)  
-        // }
+        predTeam1.name = team1
+        predTeam1.team = team1
+        predTeam1.id = team1.toLowerCase() + "_" + "preds" + `${oneGame.week}`
+        predTeam1.start = oneGame.week - 0.5
+        predTeam1.end = oneGame.week + 0.5
+
+        predTeam2.name = team2
+        predTeam2.team = team2
+        predTeam2.id = team2.toLowerCase() + "_" + "preds" + `${oneGame.week}`
+        predTeam2.start = oneGame.week - 0.5
+        predTeam2.end = oneGame.week + 0.5
+
         resultTeam1.opacity = oneGame.opacity
         resultTeam2.opacity = oneGame.opacity
-        
+        predTeam1.opacity = oneGame.transparency/2 + 0.1
+        predTeam2.opacity = oneGame.transparency/2 + 0.1
+
         if (team1Score > team2Score) {
-          // resultTeam1.dependency = [resultTeam2.id]
-          // resultTeam2.dependency = resultTeam1.id
           resultTeam1.color = 'rgb(0,0,255)'
           resultTeam2.color = 'rgb(0,0,0)'
-          resultTeam1.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Win'
-          resultTeam2.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Loss'
+          predTeam1.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Win' + '<br/>'
+          predTeam2.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Loss' + '<br/>'
+          if (Math.abs(team1Score - team2Score) >= 28) {
+            resultTeam1.dependency = [resultTeam2.id]
+            predTeam1.hoverOver += 'Blowout <br/>'
+            predTeam2.hoverOver += 'Blowout <br>'
+            }
         } else {
-          // resultTeam2.dependency = [resultTeam1.id]
-          // resultTeam1.dependency = resultTeam2.id
           resultTeam1.color = 'rgb(0,0,0)'
           resultTeam2.color = 'rgb(0,0,255)'
-          resultTeam1.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Loss'
-          resultTeam2.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Win'
+          predTeam1.hoverOver = `${team1} ${team1Score} - ${team2} ${team2Score}` + '<br/>' + 'Loss' + '<br/>'
+          predTeam2.hoverOver = `${team2} ${team2Score} - ${team1} ${team1Score}` + '<br/>' + 'Win' + '<br/>'
+          if (Math.abs(team1Score - team2Score) >= 28 ) {
+            resultTeam2.dependency = [resultTeam1.id]
+            predTeam1.hoverOver += 'Blowout <br>'
+            predTeam2.hoverOver += 'Blowout <br>'
+            }
         }
+
+        if (oneGame.correct === 2) {
+          predTeam1.color = 'rgb(0,181,0)'
+          predTeam2.color = 'rgb(0,181,0)'
+          predTeam1.hoverOver += `ESPN got 2 correct! Predicted outcome was ${team1} ${team1PredScore} - ${team2} ${team2PredScore}.`
+          predTeam2.hoverOver += `ESPN got 2 correct! Predicted outcome was ${team2} ${team2PredScore} - ${team1} ${team1PredScore}.`
+        } else if (oneGame.correct === 1) {
+          predTeam1.color = 'rgb(255,229,0)'
+          predTeam2.color = 'rgb(255,229,0)'
+          predTeam1.hoverOver += `ESPN got 1 correct! Predicted outcome was ${team1} ${team1PredScore} - ${team2} ${team2PredScore}.`
+          predTeam2.hoverOver += `ESPN got 1 correct! Predicted outcome was ${team2} ${team2PredScore} - ${team1} ${team1PredScore}.`
+        } else {
+          predTeam1.color = 'rgb(230,0,0)'
+          predTeam2.color = 'rgb(230,0,0)'
+          predTeam1.hoverOver += `ESPN got 0 correct. Predicted outcome was ${team1} ${team1PredScore} - ${team2} ${team2PredScore}.`
+          predTeam2.hoverOver += `ESPN got 0 correct. Predicted outcome was ${team2} ${team2PredScore} - ${team1} ${team1PredScore}.`
+        }
+
+        if (oneGame.opacity === 0) {
+          predTeam1.opacity = 0
+          predTeam2.opacity = 0
+          predTeam1.hoverOver = "Dinasours are the best!"
+          predTeam2.hoverOver = "Dinasours RAAWR"
+        }
+
+
 
         dataArray.push(resultTeam1)
         dataArray.push(resultTeam2)
+        dataArray.push(predTeam1)
+        dataArray.push(predTeam2)
       })
     })
 

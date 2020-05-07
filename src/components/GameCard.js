@@ -11,29 +11,37 @@ class GameCard extends React.Component {
         height: "3rem",
         color: this.props.thisGame.color,
         removed: false,
-        dispatched: false
+        dispatched: false,
+        changedPast: false,
+        
+        correct: this.props.thisGame.correct,
+        incorrect: this.props.thisGame.incorrect,
+        errorMargin: this.props.thisGame.errorMargin,
+        team_1_actual_score: this.props.thisGame.team_1_actual_score,
+        team_2_actual_score: this.props.thisGame.team_2_actual_score
     }
 
     componentDidMount () {
         this.props.onAddCorrect(this.props.thisGame.correct, this.props.thisGame.incorrect, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame)
     }
 
-    handleClick = () => {
-        this.setState(prev => {
-            let newHeight
-            if (prev.height === "3rem") {
-                newHeight = "15rem"
-            } else {
-                newHeight = "3rem"
-            }
-            return {clicked: !prev.clicked, height: newHeight}
-        })
+    handleClick = (event) => {
+        if (event.target.innerText !== "Change the past") {
+            this.setState(prev => {
+                let newHeight
+                if (prev.height === "3rem") {
+                    newHeight = "19rem"
+                } else {
+                    newHeight = "3rem"
+                }
+                return {clicked: !prev.clicked, height: newHeight}
+            })
+        }
     }
 
     removeAnalysis = () => {
         let subtract = -1 * this.props.thisGame.correct
         let removeErrorMargin = -1 * this.props.thisGame.errorMargin
-        console.log("removeAnalysis")
         this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame)
         this.setState({
             clicked: false,
@@ -52,6 +60,42 @@ class GameCard extends React.Component {
         })
     }
 
+    changeThePast = (event, boolean) => {
+        if (event.target.innerText === "Change the past") {
+        
+            let newGame = {}
+            newGame.batchId = this.props.thisGame.batchId
+            newGame.color = 'rgba(0,181,0,1)'
+            newGame.errorMargin = 0
+            newGame.game = this.props.thisGame.game
+            newGame.correct = 2
+            newGame.incorrect = 0
+            newGame.opacity = 1
+            newGame.team_1_actual_score = Math.round((this.props.thisGame.team_1_score_predictions[0] + this.props.thisGame.team_1_score_predictions[1])/2)
+            newGame.team_2_actual_score = Math.round((this.props.thisGame.team_2_score_predictions[0] + this.props.thisGame.team_2_score_predictions[1])/2)
+            newGame.team_1_score_predictions = this.props.thisGame.team_1_score_predictions
+            newGame.team_2_score_predictions = this.props.thisGame.team_2_score_predictions
+            newGame.transparency= 1.0
+            newGame.week = this.props.thisGame.week
+            newGame.oldGame = this.props.thisGame
+
+            let add = 2 - this.props.thisGame.correct
+            let subtract = -1 * this.props.thisGame.incorrect
+            let removeErrorMargin = -1 * this.props.thisGame.errorMargin
+
+            this.props.onRemoveCorrect(add, subtract, removeErrorMargin, this.props.thisGame.batchId, newGame)
+            this.setState({
+                correct: 2,
+                incorrect: 0,
+                errorMargin: 0,
+                team_1_actual_score: Math.round((this.props.thisGame.team_1_score_predictions[0] + this.props.thisGame.team_1_score_predictions[1])/2),
+                team_2_actual_score: Math.round((this.props.thisGame.team_2_score_predictions[0] + this.props.thisGame.team_2_score_predictions[1])/2),
+                color: 'rgba(0,181,0,1)',
+                changedPast: true
+            })
+        }
+    }
+
     //when clicked, add a margin property around the div
     //should get the div to expand with it
     //margin-bottom
@@ -62,21 +106,12 @@ class GameCard extends React.Component {
     //float left or right
     //also a clear property (clear left/right/both)
 
-    // sendDate = () => {
-    //     this.props.onAddCorrect(this.props.thisGame.correct, this.props.thisGame.incorrect, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame)
-    //     this.setState({dispatched: true})
-    // }
-
     render () {
-
-        // if (!this.state.dispatched) {
-            // this.sendDate()
-        // }
 
         return (
             <div>
                 <Card
-                    onClick={this.handleClick}
+                    onClick={(event) => this.handleClick(event)}
                     className="text-center"
                     style={{ 
                         background: this.state.color,
@@ -89,14 +124,15 @@ class GameCard extends React.Component {
                         <div>
                             <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[0]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[0]}`}</p>
                             <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[1]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[1]}`}</p>
-                            <h6><strong>{`Actual score: ${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_actual_score}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_actual_score}`}</strong></h6>
-                            <p>{`Espn got ${this.props.thisGame.correct} correct!`}</p>
-                            <p>{`The average error for predicted game margin was `}<b>{`${this.props.thisGame.errorMargin/2}.`}</b></p>
+                            <h6><strong>{`Actual score: ${this.props.thisGame.game[0]}: ${this.state.team_1_actual_score}, ${this.props.thisGame.game[1]}: ${this.state.team_2_actual_score}`}</strong></h6>
+                            <p>{`Espn got ${this.state.correct} correct!`}</p>
+                            <p>{`The average error for predicted game margin was `}<b>{`${this.state.errorMargin/2}.`}</b></p>
+                            {!this.state.changedPast && !this.state.removed ? <button onClick={(event) => this.changeThePast(event)} className="button">Change the past</button> : null}
                         </div>
                     : null}
                 </Card>
-                {this.state.clicked && !this.state.removed ? <button type="submit" onClick={this.removeAnalysis} >Remove this analysis!</button> : null}
-                {this.state.clicked && this.state.removed ? <button type="submit" onClick={this.restoreAnalysis} >Return this analysis!</button> : null}
+                {this.state.clicked && !this.state.removed && !this.state.changedPast ? <button type="submit" onClick={this.removeAnalysis} >Remove this analysis!</button> : null}
+                {this.state.clicked && this.state.removed && !this.state.changedPast? <button type="submit" onClick={this.restoreAnalysis} >Return this analysis!</button> : null}
             </div>
         )
     }
