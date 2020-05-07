@@ -2,6 +2,7 @@ import {
     UPDATE_CORRECT_PREDICTIONS,
     REMOVE_CORRECT_PREDICTIONS,
     CHANGE_THE_PAST,
+    RESTORE_THE_PAST,
     LOADING_FINISHED,
     CLEAR_ANALYSIS
 } from './analysisTypes'
@@ -45,7 +46,20 @@ export const changeThePast = (numberCorrect, numberIncorrect, errorMargin, batch
         thisGame: thisGame,
         remove: remove
     }
-} 
+}
+
+export const restoreThePast = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove) => {
+    //peel out the old game from within thisGame
+    return {
+        type: RESTORE_THE_PAST,
+        correct: numberCorrect,
+        incorrect: numberIncorrect,
+        errorMargin: errorMargin,
+        batchId: batchId,
+        thisGame: thisGame,
+        remove: remove
+    }
+}
 
 export const doneLoading = () => {
     return {

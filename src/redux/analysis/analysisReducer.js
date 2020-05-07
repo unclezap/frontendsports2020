@@ -2,6 +2,7 @@ import {
     UPDATE_CORRECT_PREDICTIONS,
     REMOVE_CORRECT_PREDICTIONS,
     CHANGE_THE_PAST,
+    RESTORE_THE_PAST,
     LOADING_FINISHED,
     CLEAR_ANALYSIS
 } from './analysisTypes'
@@ -22,12 +23,10 @@ const initialState = {
 const batchReducer = (state = initialState, action) => {
     switch (action.type) {
         case REMOVE_CORRECT_PREDICTIONS:
-            // if (action.toggleOpacityOff === 0) {
                 action.thisGame.opacity = 0
                 console.log("toggling", action.thisGame.opacity)
-            // } 
-            // console.log("not toggling", action.thisGame.opacity, )
         case CHANGE_THE_PAST:
+        case RESTORE_THE_PAST:
         case UPDATE_CORRECT_PREDICTIONS:
 
             let updatedBatch = state.batch.filter(batch => batch.batchId === action.batchId)
@@ -44,6 +43,7 @@ const batchReducer = (state = initialState, action) => {
             updatedBatch.errorMargin += action.errorMargin
 
             if (action.remove) {
+                console.log("removing")
                 updatedBatch.games = [...updatedBatch.games.filter(gameObject => gameObject.game[0] !== action.thisGame.game[0]).flat(),action.thisGame]
 
             } else {

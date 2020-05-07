@@ -5,8 +5,6 @@ import { addCorrect } from '../redux'
 import { removeCorrect } from '../redux'
 import { changeThePast } from '../redux'
 
-// let toggleOpacityOff
-
 class GameCard extends React.Component {
 
     state = {
@@ -30,6 +28,7 @@ class GameCard extends React.Component {
 
     handleClick = (event) => {
         if (event.target.innerText !== "Change the past" && event.innerText !== "Restore the past") {
+            console.log("not restoring")
             this.setState(prev => {
                 let newHeight
                 if (prev.height === "3rem") {
@@ -45,8 +44,7 @@ class GameCard extends React.Component {
     removeAnalysis = () => {
         let subtract = -1 * this.props.thisGame.correct
         let removeErrorMargin = -1 * this.props.thisGame.errorMargin
-        // toggleOpacityOff = 0
-        this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame)
+        this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame, true)
         this.setState({
             clicked: false,
             height: "3rem",
@@ -57,7 +55,7 @@ class GameCard extends React.Component {
 
     restoreAnalysis = () => {
         let subtract = -1 * this.props.thisGame.correct
-        this.props.onAddCorrect(this.props.thisGame.correct, subtract, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame)
+        this.props.onAddCorrect(this.props.thisGame.correct, subtract, this.props.thisGame.errorMargin, this.props.thisGame.batchId, this.props.thisGame, true)
         this.setState({
             color: this.props.thisGame.color,
             removed: false
@@ -68,7 +66,6 @@ class GameCard extends React.Component {
         if (event.target.innerText === "Change the past") {
         
             let newGame = {}
-            // toggleOpacityOff = 1
             newGame.batchId = this.props.thisGame.batchId
             newGame.color = 'rgba(0,181,0,1)'
             newGame.errorMargin = 0
@@ -88,7 +85,7 @@ class GameCard extends React.Component {
             let subtract = -1 * this.props.thisGame.incorrect
             let removeErrorMargin = -1 * this.props.thisGame.errorMargin
 
-            this.props.onChangeThePast(add, subtract, removeErrorMargin, this.props.thisGame.batchId, newGame)
+            this.props.onChangeThePast(add, subtract, removeErrorMargin, this.props.thisGame.batchId, newGame, true)
             this.setState({
                 correct: 2,
                 incorrect: 0,
@@ -103,6 +100,9 @@ class GameCard extends React.Component {
 
     restoreThePast = (event) => {
         console.log("restoring")
+        if (event.target.innerText === "Restore the past") {
+            // this.props.onChangeThePast
+        }
     }
 
     //when clicked, add a margin property around the div
@@ -151,9 +151,9 @@ class GameCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-       onAddCorrect: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId, thisGame)),
-       onRemoveCorrect: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(removeCorrect(correct, incorrect, errorMargin, batchId, thisGame)),
-       onChangeThePast: (correct, incorrect, errorMargin, batchId, thisGame) => dispatch(changeThePast(correct, incorrect, errorMargin, batchId, thisGame))
+       onAddCorrect: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(addCorrect(correct, incorrect, errorMargin, batchId, thisGame, remove)),
+       onRemoveCorrect: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(removeCorrect(correct, incorrect, errorMargin, batchId, thisGame, remove)),
+       onChangeThePast: (correct, incorrect, errorMargin, batchId, thisGame, remove) => dispatch(changeThePast(correct, incorrect, errorMargin, batchId, thisGame, remove))
     }
 }
 
