@@ -1,6 +1,7 @@
 import {
     UPDATE_CORRECT_PREDICTIONS,
     REMOVE_CORRECT_PREDICTIONS,
+    CHANGE_THE_PAST,
     LOADING_FINISHED,
     CLEAR_ANALYSIS
 } from './analysisTypes'
@@ -21,6 +22,12 @@ const initialState = {
 const batchReducer = (state = initialState, action) => {
     switch (action.type) {
         case REMOVE_CORRECT_PREDICTIONS:
+            // if (action.toggleOpacityOff === 0) {
+                action.thisGame.opacity = 0
+                console.log("toggling", action.thisGame.opacity)
+            // } 
+            // console.log("not toggling", action.thisGame.opacity, )
+        case CHANGE_THE_PAST:
         case UPDATE_CORRECT_PREDICTIONS:
 
             let updatedBatch = state.batch.filter(batch => batch.batchId === action.batchId)

@@ -13,6 +13,7 @@ class BrowsePredictions extends React.Component {
     state = {chartDone: false}
 
     componentDidMount() {
+        this.props.onClearAnalysis()
         this.props.onFetchBatches()
     }
 
