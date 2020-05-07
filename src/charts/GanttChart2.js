@@ -88,7 +88,7 @@ const mapStateToProps = state => {
   
   let weeks = [""]
   for (let i=1; i< 18; i++) {
-    weeks.push(`Wk ${i}`)
+    weeks.push(`Week ${i}`)
   }
 
   // let order = ["Patriots", "Bills", "Jets", "Dolphins", "Ravens", "Steelers", "Browns", "Bengals", "Texans", "Titans", "Colts", "Jaguars", "Chiefs", "Broncos", "Raiders", "Chargers", "Eagles", "Cowboys", "Giants", "Washington", "Packers", "Vikings", "Bears", "Lions", "Saints", "Falcons", "Buccaneers", "Panthers", "49ers", "Seahawks", "Rams", "Cardinals"];
@@ -110,15 +110,15 @@ const mapStateToProps = state => {
         resultTeam1.name = team1
         resultTeam1.team = team1
         resultTeam1.id = team1.toLowerCase() + "_" + "results" + `${oneGame.week}`
-        resultTeam1.start = oneGame.week
-        resultTeam1.end = 21
+        resultTeam1.start = oneGame.week + Math.random()/10
+        resultTeam1.end = 18
         resultTeam1.milestone = true
 
         resultTeam2.name = team2
         resultTeam2.team = team2
         resultTeam2.id = team2.toLowerCase() + "_" + "results" + "_" + `${oneGame.week}`
-        resultTeam2.start = oneGame.week
-        resultTeam2.end = 21
+        resultTeam2.start = oneGame.week - Math.random()/10
+        resultTeam2.end = 18
         resultTeam2.milestone = true
 
         predTeam1.name = team1
