@@ -147,7 +147,7 @@ class GameCard extends React.Component {
                             <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[0]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[0]}`}</p>
                             <p>{`${this.props.thisGame.game[0]}: ${this.props.thisGame.team_1_score_predictions[1]}, ${this.props.thisGame.game[1]}: ${this.props.thisGame.team_2_score_predictions[1]}`}</p>
                             <h6><strong>{`Actual score: ${this.props.thisGame.game[0]}: ${this.state.team_1_actual_score}, ${this.props.thisGame.game[1]}: ${this.state.team_2_actual_score}`}</strong></h6>
-                            
+
                             <p style={{textAlign: "center"}}>{`Espn got ${this.state.correct} correct!`}</p>
                             
                             <p>{`The average error for predicted game margin was `}<b>{`${this.state.errorMargin/2}.`}</b></p>
@@ -155,9 +155,10 @@ class GameCard extends React.Component {
                             {this.state.changedPast ? <button onClick={(event) => this.restoreThePast(event)}>Restore the past</button>: null}
                         </div>
                     : null}
+                    {this.state.clicked && !this.state.removed && !this.state.changedPast ? <button className="text-center" type="submit" onClick={this.removeAnalysis} >Remove this analysis!</button> : null}
+                    {this.state.clicked && this.state.removed && !this.state.changedPast? <button type="submit" onClick={this.restoreAnalysis} >Return this analysis!</button> : null}
                 </Card>
-                {this.state.clicked && !this.state.removed && !this.state.changedPast ? <button type="submit" onClick={this.removeAnalysis} >Remove this analysis!</button> : null}
-                {this.state.clicked && this.state.removed && !this.state.changedPast? <button type="submit" onClick={this.restoreAnalysis} >Return this analysis!</button> : null}
+
             </div>
         )
     }

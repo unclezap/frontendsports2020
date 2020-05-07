@@ -24,10 +24,10 @@ class NavBar extends React.Component {
     render () {
         return (
             <div className="navbar">
-                {this.props.style.backgroundImage1 == null ? <Button variant="outline-danger" onClick={this.handleReturn}>Return CSS</Button> : <Button variant="outline-danger" onClick={this.handleRemove}>Remove CSS</Button>}
+                {this.props.style.backgroundImage1 == null ? <Button variant="outline-danger" onClick={this.handleReturn}>Return Gifs</Button> : <Button variant="outline-danger" onClick={this.handleRemove}>Remove Gifs</Button>}
                 <Link className="nav-link" to="/">Home</Link>
-                <Link className="nav-link" to='/new'>Analyze Predictions</Link>
-                <Link className="nav-link" to='/old'>Saved Predictions</Link>
+                <Link className="nav-link" to='/new'>Individual Predictions</Link>
+                <Link className="nav-link" to='/old'>All Predictions</Link>
                 {!!this.props.token ? null : <Link className="nav-link" to="/signup">Sign Up</Link>}
                 {!!this.props.token ? <Link className="nav-link" to="/account">My Account</Link> : null}
                 {!!this.props.token ? <Button variant="outline-danger" onClick={this.handleLogout}>Logout</Button> : null}

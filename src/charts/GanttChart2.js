@@ -22,6 +22,16 @@ class GanttChart2 extends React.Component {
   render() {
     return (
       <div>
+        <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Click on a week below to chart it!</p>
+        <br></br>
+        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center"}}>Diamond points represent real-life game results, with blue diamonds representing wins and black ones representing losses.  The opacity of the diamond represents the strength of the win or the depth of the loss.</p>
+        <br></br>
+        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Colored blocks represent ESPN's predictions.  Green blocks represent completely accurate W/L predictions.  Red blocks indicated ESPN was not correct in their W/L projections, and yellow blocks represent times where they prevaricated, giving two separate W/L predictions.</p>
+        <br></br>
+        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Arrows represent blowouts (margin >= 28 points), with the arrow pointing towards the game winner.</p>
+        <br></br>
+        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>You can create alternate timelines by clicking on the "Change the past" buttons, making a timeline more like the one ESPN thought would happen.</p>
+        
       { this.props.loaded ? this.showChart() : null}
       </div>
     );
@@ -34,10 +44,7 @@ const mapStateToProps = state => {
 
   let chartOptionsObjectMaker = (theData) =>  {
 
-    // if (theData[0].data.map((row) => {
-    //
-    //best one so far
-    if ( theData[0].data.map((row) => {
+       if ( theData[0].data.map((row) => {
       if (Object.keys.length >= 8) {
           return row
         }
@@ -46,34 +53,15 @@ const mapStateToProps = state => {
     }).length) {
       loadedChecker = true
     }
-    //
-    //second attempt
-    // let gamesLength = 0
-    // state.analysis.batch.forEach((batch) => {
-    //   gamesLength += batch.games.length
-    // })
-
-    // if (theData[0].data.map((row) => {
-    //   if (Object.keys(row).length >=8) {
-    //     return row
-    //   }
-    // }).length === gamesLength) {
-    //   loadedChecker = true
-    // }
-    //
-    //basic
-    // loadedChecker = true
 
     return {
       tooltip: {
         enabled: true,
         formatter: function() {
-          //
           return `${this.point.hoverOver}`;
         }
       },
       title: {
-        //
         text: '2019 Season'
       },
       xAxis: [{
@@ -88,10 +76,8 @@ const mapStateToProps = state => {
   
   let weeks = [""]
   for (let i=1; i< 18; i++) {
-    weeks.push(`Week ${i}`)
+    weeks.push(` Wk ${i}`)
   }
-
-  // let order = ["Patriots", "Bills", "Jets", "Dolphins", "Ravens", "Steelers", "Browns", "Bengals", "Texans", "Titans", "Colts", "Jaguars", "Chiefs", "Broncos", "Raiders", "Chargers", "Eagles", "Cowboys", "Giants", "Washington", "Packers", "Vikings", "Bears", "Lions", "Saints", "Falcons", "Buccaneers", "Panthers", "49ers", "Seahawks", "Rams", "Cardinals"];
 
     let dataArray = []
     state.analysis.batch.forEach(batch => {
@@ -110,15 +96,15 @@ const mapStateToProps = state => {
         resultTeam1.name = team1
         resultTeam1.team = team1
         resultTeam1.id = team1.toLowerCase() + "_" + "results" + `${oneGame.week}`
-        resultTeam1.start = oneGame.week + Math.random()/10
-        resultTeam1.end = 18
+        resultTeam1.start = oneGame.week + Math.random()/20
+        resultTeam1.end = 17
         resultTeam1.milestone = true
 
         resultTeam2.name = team2
         resultTeam2.team = team2
         resultTeam2.id = team2.toLowerCase() + "_" + "results" + "_" + `${oneGame.week}`
-        resultTeam2.start = oneGame.week - Math.random()/10
-        resultTeam2.end = 18
+        resultTeam2.start = oneGame.week - Math.random()/20
+        resultTeam2.end = 17
         resultTeam2.milestone = true
 
         predTeam1.name = team1
@@ -202,26 +188,6 @@ const mapStateToProps = state => {
     let seriesObject = {}
     seriesObject.data = dataArray
     let seriesArray = [seriesObject]
-    // let chartOptionsObject =  {
-    //   tooltip: {
-    //     enabled: true,
-    //     formatter: function() {
-    //       //
-    //       return `${this.point.hoverOver}`;
-    //     }
-    //   },
-    //   title: {
-    //     //
-    //     text: '2019 Season'
-    //   },
-    //   xAxis: [{
-    //     categories: weeks,
-    //   }],
-    //   yAxis: {
-    //     uniqueNames: true,
-    //   },
-    //   series: seriesArray
-    // }, loadedChecker = true
 
     let chartOptionsObject = chartOptionsObjectMaker(seriesArray)
 

@@ -53,6 +53,7 @@ class AnalysisCard extends React.Component {
                 >Go Back</Link> : null}
                 </div>
                 {theCircleIsNowComplete ? <h1>{`ESPN got ${Math.round(100*thisParticularAnalysis.correct/(thisParticularAnalysis.correct + thisParticularAnalysis.incorrect))}% correct!`}</h1> : null}
+                {this.props.previousPage === "new" ? <div><p>Each game card is colored based on the accuracy of ESPN's predictions - green cards represent W/L outcomes that were predicted completely correctly, red cards represent outcomes that were not predicted, and yellow cards represent cases where two different pundits predicted different W/L results.</p><br></br><p>The opacity of the card indicates the accuracy of the result.  Games where the margin of victory was close to ESPN's average predicted margin of victory are shaded darkly, while games where ESPN's predicted scores were off the mark are shaded dimly.</p> </div>: null}
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,

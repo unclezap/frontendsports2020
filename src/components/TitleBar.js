@@ -16,9 +16,16 @@ import { connect } from 'react-redux';
     render () {
         return (
             <div >
-                <h1 style={{background: "blue", display: "flex", alignItems: "center", justifyContent: "center"}}>Hindsight is Sports2020!</h1>
+                <h1 style={{background: "blue", display: "flex", alignItems: "center", justifyContent: "center", color: "red"}}>Hindsight is Sports2020!</h1>
                 <br></br>
+                {/* <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}></p> */}
                 {this.props.token === undefined ? this.showLogin() : null }
+                {/* <br style={{background: "red", display: "flex", alignItems: "center", justifyContent: "center"}}></br> */}
+                <div style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}
+style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <p ></p>
+                <h3> Sports2020 is a truth-in-journalism watchdog site, keeping ESPN accountable for their football predictions.</h3>
+                </div>
             </div>
         );
     }
