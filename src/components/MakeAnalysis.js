@@ -15,7 +15,6 @@ class MakeAnalysis extends React.Component {
         for (let i=0; i < 4 - extraCards; i++) {
             array.push(1)
         }
-        console.log("array", array)
 
         return array.map(count => {return <Col></Col>})
 

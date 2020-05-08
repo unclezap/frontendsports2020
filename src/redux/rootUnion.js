@@ -4,7 +4,7 @@ import styleReducer from './style/styleReducer'
 import userReducer from './user/userReducer'
 import batchReducer from './batch/batchReducer'
 import analysisReducer from './analysis/analysisReducer'
-import superAnalysisReducer from './superAnalysis/superAnalysisReducer'
+// import superAnalysisReducer from './superAnalysis/superAnalysisReducer'
 
 const rootReducer = combineReducers({
     // article: articleReducer,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     batches: batchReducer,
     analysis: analysisReducer,
-    chart: superAnalysisReducer
+    // chart: superAnalysisReducer
 })
 
 export default rootReducer

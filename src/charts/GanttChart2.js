@@ -20,6 +20,7 @@ class GanttChart2 extends React.Component {
 
 
   render() {
+    console.log("percentage",this.props.percentage)
     return (
       <div>
         <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Click on a week below to chart it!</p>
@@ -31,6 +32,9 @@ class GanttChart2 extends React.Component {
         <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Arrows represent blowouts (margin >= 28 points), with the arrow pointing towards the game winner.</p>
         <br></br>
         <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>You can create alternate timelines by clicking on the "Change the past" buttons, making a timeline more like the one ESPN thought would happen.</p>
+        <br></br>
+        <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}><b>{`In this timeline, ESPN got ${this.props.percentage}% of its predictions correct!`}</b></p>
+        <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}><b>{`The average error in predicted game margin was ${this.props.overallError} points.`}</b></p>
         
       { this.props.loaded ? this.showChart() : null}
       </div>
@@ -79,8 +83,17 @@ const mapStateToProps = state => {
     weeks.push(` Wk ${i}`)
   }
 
+    let totalGames = 0
+    let correctGames = 0
+    let totalError = 0
+
     let dataArray = []
     state.analysis.batch.forEach(batch => {
+
+      totalGames += batch.correct + batch.incorrect
+      correctGames += batch.correct
+      totalError += batch.errorMargin
+
       batch.games.forEach(oneGame => {
         let resultTeam1 = {}
         let resultTeam2 = {}
@@ -191,9 +204,14 @@ const mapStateToProps = state => {
 
     let chartOptionsObject = chartOptionsObjectMaker(seriesArray)
 
+    let overallPercentage = Math.round(100 * correctGames/(totalGames))
+    let overallErrorMargin = Math.round(totalError/totalGames, 3) 
+
   return {
     options: chartOptionsObject,
-    loaded: loadedChecker
+    loaded: loadedChecker,
+    percentage: overallPercentage,
+    overallError: overallErrorMargin
   }
 }
 
