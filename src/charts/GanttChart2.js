@@ -20,7 +20,6 @@ class GanttChart2 extends React.Component {
 
 
   render() {
-    console.log("percentage",this.props.percentage)
     return (
       <div>
         <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Click on a week below to chart it!</p>

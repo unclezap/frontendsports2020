@@ -5,7 +5,6 @@ import GameCard from './GameCard'
 class MakeAnalysis extends React.Component {
 
     makeColumns = () => {
-        console.log("++++++++++")
         let extraCards = (this.props.predictions.length/2) % 4
         if (extraCards === 0) {
             extraCards = 4
@@ -162,16 +161,6 @@ class MakeAnalysis extends React.Component {
             return (
                 <Col key={index}>
                     <GameCard
-                    // game={game}
-                    // team_1_score_predictions={team_1_score_predictions}
-                    // team_2_score_predictions={team_2_score_predictions}
-                    // team_1_actual_score={team_1_actual_score}
-                    // team_2_actual_score={team_2_actual_score}
-                    // correct={correct}
-                    // incorrect={incorrect}
-                    // color={color}
-                    // errorMargin={errorMargin}
-                    // batchId={this.props.batchId}
                     thisGame={thisGame}
                     />
                 </Col>
