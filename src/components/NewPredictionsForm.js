@@ -6,9 +6,6 @@ import AnalysisCard from '../components/AnalysisCard';
 import AuthHOC from '../HOC/AuthHOC';
 
 const INITIAL_STATE = {
-    // fields: {
-    //     article: ""
-    // },
     submitted: false,
     failure: false,
     spinner: Math.floor(Math.random()*2) + 1,
@@ -45,34 +42,18 @@ class NewPredictionsForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event.target.value)
         let website = urlReference[event.target.value]
-        console.log("website",website)
         this.setState({submitted: true}, ()=> this.props.onPostArticle(website))
     }
 
-    // handleChange = (event) => {
-    //     const newFields = {...this.state.fields, [event.target.name]: event.target.value};
-    //     this.setState({
-    //         fields: newFields,
-    //         submitted: false
-    //     });
-    // }
-
     handleGoBack = (event) => {
-        // event.preventDefault();
         this.setState({submitted: false})
-
     }
 
 
     createOptions = (array) => {
         return array.map(week => <option value={week} key={week}>{week}</option>)
       }
-
-    pickWeek = (event) => {
-        console.log(event.target.value)
-    }
 
     render () {
         return (
@@ -118,8 +99,6 @@ const mapStateToProps = state => {
         loading: state.batches.loading,
         loaded: state.batches.loaded,
         batch: state.batches.batches[0],
-        // predictions: state.batches.batches[0].predictions,
-        // scores: state.batches.batches[0].scores,
         style: state.style
     }
 }

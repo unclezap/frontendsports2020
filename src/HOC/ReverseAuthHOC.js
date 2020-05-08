@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom'
 const ReverseAuthHOC = WrappedComponent => {
     return class ReverseAuthHOC extends React.Component {
         isAuthorized = () => {
-            console.log("reverse")
             if (localStorage.getItem("token")) {
                 return true
             } else {
@@ -13,7 +12,6 @@ const ReverseAuthHOC = WrappedComponent => {
         }
 
         alertAndRedirect = () => {
-            // alert ("Log in first!")
             return <Redirect to="/" />
         }
 

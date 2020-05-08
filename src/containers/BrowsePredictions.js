@@ -54,7 +54,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onClearAnalysis: () => dispatch(clearAnalysis()),
         onFetchBatches: () => dispatch(fetchBatches()),
-        onAddChartObject: (chartObject) => dispatch(addChartObject(chartObject)),
     }
 }
 

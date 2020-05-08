@@ -19,12 +19,6 @@ export const addCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId,
 }
 
 export const removeCorrect = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove) => {
-    // if (toggleOpacityOff === 1) {
-    //     thisGame.opacity = 0
-    //     console.log("toggling")
-    //     console.log(thisGame.opacity)
-    // } 
-    // console.log("not toggling", toggleOpacityOff)
     return {
         type: REMOVE_CORRECT_PREDICTIONS,
         correct: numberCorrect,
@@ -49,7 +43,6 @@ export const changeThePast = (numberCorrect, numberIncorrect, errorMargin, batch
 }
 
 export const restoreThePast = (numberCorrect, numberIncorrect, errorMargin, batchId, thisGame, remove) => {
-    console.log("restoring the past")
     return {
         type: RESTORE_THE_PAST,
         correct: numberCorrect,

@@ -24,7 +24,6 @@ const batchReducer = (state = initialState, action) => {
     switch (action.type) {
         case REMOVE_CORRECT_PREDICTIONS:
                 action.thisGame.opacity = 0
-                console.log("toggling", action.thisGame.opacity)
         case CHANGE_THE_PAST:
         case RESTORE_THE_PAST:
         case UPDATE_CORRECT_PREDICTIONS:
@@ -43,7 +42,6 @@ const batchReducer = (state = initialState, action) => {
             updatedBatch.errorMargin += action.errorMargin
 
             if (action.remove) {
-                console.log("removing")
                 updatedBatch.games = [...updatedBatch.games.filter(gameObject => gameObject.game[0] !== action.thisGame.game[0]).flat(),action.thisGame]
 
             } else {
