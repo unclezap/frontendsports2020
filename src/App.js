@@ -26,7 +26,7 @@ class App extends React.Component {
     window.removeEventListener('beforeunload', this.onUnmount, false);
     this.onUnmount();
   }
-
+//useless comment
   render() {
     return (
         <Router>
