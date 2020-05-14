@@ -8,7 +8,8 @@ import {
     LOG_OUT
 } from './userTypes'
 
-const API_ROOT = 'https://backendsports2020.herokuapp.com'
+// const API_ROOT = 'https://backendsports2020.herokuapp.com'
+const API_ROOT = 'http://localhost:3000'
 
 //user creation
 export const postNewUser = (user) => {
