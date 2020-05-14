@@ -1,9 +1,9 @@
-import stats from '../IMG/stats.gif'
-import helmetCatch from '../IMG/helmetCatch.gif'
-import code from '../IMG/code.gif'
-import twoHundredW from '../IMG/twoHundredW.gif'
-import balls from '../IMG/balls.gif'
-import hourGlass from '../IMG/hourGlass.gif'
+// import stats from '../IMG/stats.gif'
+// import helmetCatch from '../IMG/helmetCatch.gif'
+// import code from '../IMG/code.gif'
+// import twoHundredW from '../IMG/twoHundredW.gif'
+// import balls from '../IMG/balls.gif'
+// import hourGlass from '../IMG/hourGlass.gif'
 
 import {
     KILL_CSS,
@@ -11,13 +11,19 @@ import {
 } from './styleTypes'
 
 const initialState = {
-    backgroundImage1: `url(${stats})`,
-    backgroundImage2: `url(${helmetCatch})`,
-    backgroundImage3: `url(${code})`,
-    backgroundImage4: `url(${twoHundredW})`,
+    backgroundImage1: null,
+    backgroundImage2: null,
+    backgroundImage3: null,
+    backgroundImage4: null,
+    // backgroundImage1: `url(${stats})`,
+    // backgroundImage2: `url(${helmetCatch})`,
+    // backgroundImage3: `url(${code})`,
+    // backgroundImage4: `url(${twoHundredW})`,
     backgroundImage5: null,
-    loading1: `url(${balls})`,
-    loading2: `url(${hourGlass})`,
+    // loading1: `url(${balls})`,
+    // loading2: `url(${hourGlass})`,
+    loading1: null,
+    loadeing2: null,
     color1: "white",
     color2: "red",
     color3: "darkblue",
