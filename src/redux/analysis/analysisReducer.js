@@ -52,7 +52,6 @@ const batchReducer = (state = initialState, action) => {
                 batch: [...state.batch.filter(batch => batch.batchId !== action.batchId), updatedBatch],
                 loaded: true
             }
-            // break;
         case LOADING_FINISHED:
             return {
                 ...state,

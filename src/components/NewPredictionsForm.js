@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { postArticle } from '../redux';
 import AnalysisCard from '../components/AnalysisCard';

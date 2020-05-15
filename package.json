@@ -11,6 +11,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "highcharts": "^8.0.4",
     "highcharts-react-official": "^3.0.0",
     "react": "^16.13.1",
@@ -20,7 +21,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "request": "^2.88.2"
   },
   "scripts": {
     "start": "react-scripts start",

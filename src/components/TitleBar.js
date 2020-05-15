@@ -21,8 +21,7 @@ import { connect } from 'react-redux';
                 {/* <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}></p> */}
                 {this.props.token === undefined ? this.showLogin() : null }
                 {/* <br style={{background: "red", display: "flex", alignItems: "center", justifyContent: "center"}}></br> */}
-                <div style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}
-style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <div style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <p ></p>
                 <h3> Sports2020 is a truth-in-journalism watchdog site, keeping ESPN accountable for their football predictions.</h3>
                 </div>

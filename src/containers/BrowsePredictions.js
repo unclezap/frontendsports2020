@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchBatches } from '../redux';
 import AnalysisCard from '../components/AnalysisCard'
 import GanttChart2 from '../charts/GanttChart2'
-import { addChartObject } from '../redux'
+// import { addChartObject } from '../redux'
 import { clearAnalysis } from '../redux'
 
 class BrowsePredictions extends React.Component {

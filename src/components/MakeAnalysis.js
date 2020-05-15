@@ -15,7 +15,7 @@ class MakeAnalysis extends React.Component {
             array.push(1)
         }
 
-        return array.map(count => {return <Col></Col>})
+        return array.map((count, index) => {return <Col key={index}></Col>})
 
     }
 

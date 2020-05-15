@@ -47,13 +47,7 @@ const mapStateToProps = state => {
 
   let chartOptionsObjectMaker = (theData) =>  {
 
-       if ( theData[0].data.map((row) => {
-      if (Object.keys.length >= 8) {
-          return row
-        }
-      }).length === theData[0].data.map((row) => {
-      return row
-    }).length) {
+    if ( theData[0].data.map((row) => {if (Object.keys.length >= 8) { return row}}).length === theData[0].data.map((row) => { return row}).length) {
       loadedChecker = true
     }
 

@@ -30,7 +30,7 @@ class GameCard extends React.Component {
     handleClick = (event) => {
         if (event.target.innerText !== "Change the past" && event.innerText !== "Restore the past") {
             this.setState(prev => {
-                let newHeight
+                // let newHeight
                 // if (prev.height === "3rem") {
                     // newHeight = "19rem"
                 // } else {
