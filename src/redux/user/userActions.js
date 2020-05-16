@@ -31,7 +31,7 @@ export const postNewUser = (user) => {
                 localStorage.setItem("token", data.jwt)
                 dispatch(createUserSuccess(data))
             } else {
-                alert ("That username is unacceptable or has already been taken")
+                alert ("That username is unacceptable or has already been taken.")
                 dispatch(createUserFailure(data.error, data.exception))
             }
         })
