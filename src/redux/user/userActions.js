@@ -7,58 +7,58 @@ import {
     SIGN_IN_SUCCESS,
     LOG_OUT
 } from './userTypes'
-import express from 'express'
-import request from 'request'
+// import request from 'request'
 
-const app = express()
+// const app = express()
 
-const API_ROOT = 'https://backendsports2020.herokuapp.com'
-// const API_ROOT = 'http://localhost:3000'
+// const API_ROOT = 'https://backendsports2020.herokuapp.com'
+const API_ROOT = 'http://localhost:3000'
+// const PROXY_URL = 'https://git.heroku.com/frozen-inlet-49460.git'
 
 const PORT = process.env.PORT || 3000
 //user creation
 export const postNewUser = (user) => {
     return (dispatch) => {
         dispatch(createUserRequest());
-        app.use((req, res, next) => {
-            res.header('Access-Control-Allow-Origins', '*');
-            next();
-        })
-
-        app.get('/auth', (req, res) => {
-            request(
-                {url: `${API_ROOT}/auth`},
-                (error, response, body) => {
-                    if (error || response.statusCode !== 200) {
-                        return res.status(500).json({type: 'error', message: error.message})
-                    }
-
-                    res.json(JSON.parse(body))
-                }
-            )
-        })
-
-        app.listen(PORT, (data) => {
-            localStorage.setItem("token", data.jwt)
-            dispatch(createUserSuccess(data))
-        })
-
-        // fetch(`${API_ROOT}/users`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({user: user})
+        // app.use((req, res, next) => {
+        //     res.header('Access-Control-Allow-Origins', '*');
+        //     next();
         // })
-        // .then(res => res.json())
-        // .then(data => {
-        //     if (data.error) {
-        //         dispatch(createUserFailure(data.error, data.exception))
-        //     } else {
-        //         localStorage.setItem("token", data.jwt)
-        //         dispatch(createUserSuccess(data))
-        //     }
+
+        // app.get('/auth', (req, res) => {
+        //     request(
+        //         {url: `${API_ROOT}/auth`},
+        //         (error, response, body) => {
+        //             if (error || response.statusCode !== 200) {
+        //                 return res.status(500).json({type: 'error', message: error.message})
+        //             }
+
+        //             res.json(JSON.parse(body))
+        //         }
+        //     )
         // })
+
+        // app.listen(PORT, (data) => {
+        //     localStorage.setItem("token", data.jwt)
+        //     dispatch(createUserSuccess(data))
+        // })
+        // fetch(`${PROXY_URL}` + `${API_ROOT}/users`, {
+        fetch(`${API_ROOT}/users`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({user: user})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(createUserFailure(data.error, data.exception))
+            } else {
+                localStorage.setItem("token", data.jwt)
+                dispatch(createUserSuccess(data))
+            }
+        })
     }
 }
 
@@ -88,47 +88,48 @@ export const createUserSuccess = (user) => {
 export const postLogin = (uservalue) => {
     return (dispatch) => {
         dispatch(signInRequest());
-        app.use((req, res, next) => {
-            res.header('Access-Control-Allow-Origins', '*');
-            next();
-        })
-
-        app.get('/auth', (req, res) => {
-            request(
-                {url: `${API_ROOT}/auth`},
-                (error, response, body) => {
-                    if (error || response.statusCode !== 200) {
-                        return res.status(500).json({type: 'error', message: error.message})
-                    }
-
-                    res.json(JSON.parse(body))
-                }
-            )
-        })
-
-        app.listen(PORT, (data) => {
-            localStorage.setItem("token", data.jwt)
-            dispatch(signInSuccess(data))
-        })
-        // fetch(`${API_ROOT}/auth`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({user: uservalue})
+        // app.use((req, res, next) => {
+        //     res.header('Access-Control-Allow-Origins', '*');
+        //     next();
         // })
-        // .then(res => res.json())
-        // .then(data => {
-        //     if (data.error) {
-        //         dispatch(signInFailure(data.error, data.exception))
-        //     } else {
-        //         localStorage.setItem("token", data.jwt)
-        //         dispatch(signInSuccess(data))
-        //     }
+
+        // app.get('/auth', (req, res) => {
+        //     request(
+        //         {url: `${API_ROOT}/auth`},
+        //         (error, response, body) => {
+        //             if (error || response.statusCode !== 200) {
+        //                 return res.status(500).json({type: 'error', message: error.message})
+        //             }
+
+        //             res.json(JSON.parse(body))
+        //         }
+        //     )
         // })
-        // .catch(error => {
-        //     dispatch(signInFailure(error))
+
+        // app.listen(PORT, (data) => {
+        //     localStorage.setItem("token", data.jwt)
+        //     dispatch(signInSuccess(data))
         // })
+        // fetch(`${PROXY_URL}` + `${API_ROOT}/auth`, {
+        fetch(`${API_ROOT}/auth`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({user: uservalue})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(signInFailure(data.error, data.exception))
+            } else {
+                localStorage.setItem("token", data.jwt)
+                dispatch(signInSuccess(data))
+            }
+        })
+        .catch(error => {
+            dispatch(signInFailure(error))
+        })
     }
 }
 
