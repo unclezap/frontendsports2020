@@ -5,16 +5,19 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { postNewUser } from '../redux';
 import { connect } from 'react-redux';
 import ReverseAuthHOC from '../HOC/ReverseAuthHOC'
+import {Redirect} from 'react-router-dom'
+
+const INITIAL_STATE = {
+    errors: false,
+    fields: {
+        username: "",
+        password: "",
+        verifyPassword: ""
+    }
+}
 
 class SignUp extends React.Component {
-    state = {
-            errors: false,
-            fields: {
-                username: "",
-                password: "",
-                verifyPassword: ""
-            }
-        };
+    state = INITIAL_STATE
 
     handleChange = (event) => {
         const newFields = {...this.state.fields, [event.target.name]: event.target.value};
@@ -31,10 +34,11 @@ class SignUp extends React.Component {
         }
         if (this.state.fields.password !== this.state.fields.verifyPassword) {
             alert("Passwords do not match. Please try again.")
+            this.setState(INITIAL_STATE)
         } else {
             this.actualSignUp(userObject)
             //map state to props and give the alert if it worked
-            alert ("Account creation succesful. Log in with your new credentials.")
+            
         }
     };
         
@@ -47,7 +51,7 @@ class SignUp extends React.Component {
             <Container>
                 <Row >
                     <Col xs={5}>
-                        <Form onSubmit={e => this.handleSubmit(e)}>
+                        {!this.props.loaded ? <Form onSubmit={e => this.handleSubmit(e)}>
                             <Form.Group >
                                 <Form.Label>
                                     Username:
@@ -85,7 +89,7 @@ class SignUp extends React.Component {
                                 />
                             </Form.Group>
                             <Button type="submit" variant="primary">Submit</Button>
-                        </Form>
+                        </Form> : <Redirect to="/"/>}
                     </Col>
                 </Row>
             </Container>
@@ -99,5 +103,11 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        loaded: state.user.loaded
+    }
+}
 
-export default ReverseAuthHOC(connect(null, mapDispatchToProps)(SignUp));
+
+export default ReverseAuthHOC(connect(mapStateToProps, mapDispatchToProps)(SignUp));

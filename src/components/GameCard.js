@@ -30,13 +30,6 @@ class GameCard extends React.Component {
     handleClick = (event) => {
         if (event.target.innerText !== "Change the past" && event.innerText !== "Restore the past") {
             this.setState(prev => {
-                // let newHeight
-                // if (prev.height === "3rem") {
-                    // newHeight = "19rem"
-                // } else {
-                    // newHeight = "3rem"
-                // }
-                // return {clicked: !prev.clicked, height: newHeight}
                 return {clicked: !prev.clicked}
             })
         }
@@ -48,7 +41,6 @@ class GameCard extends React.Component {
         this.props.onRemoveCorrect(subtract, this.props.thisGame.correct, removeErrorMargin, this.props.thisGame.batchId, this.props.thisGame, true)
         this.setState({
             clicked: false,
-            // height: "3rem",
             color: "grey",
             removed: true
         })
@@ -117,16 +109,6 @@ class GameCard extends React.Component {
         }
     }
 
-    //when clicked, add a margin property around the div
-    //should get the div to expand with it
-    //margin-bottom
-
-    //bootstrap has some rules about how this works
-    //flexbox system - each box has a # of rows and columns
-    //float property
-    //float left or right
-    //also a clear property (clear left/right/both)
-
     render () {
 
         return (
@@ -137,7 +119,6 @@ class GameCard extends React.Component {
                     style={{ 
                         background: this.state.color,
                         width: '18rem',
-                        // height: this.state.height
                         display: "flex"
                     }}
                 >

@@ -7,42 +7,15 @@ import {
     SIGN_IN_SUCCESS,
     LOG_OUT
 } from './userTypes'
-// import request from 'request'
 
-// const app = express()
 
 // const API_ROOT = 'https://backendsports2020.herokuapp.com'
 const API_ROOT = 'http://localhost:3000'
-// const PROXY_URL = 'https://git.heroku.com/frozen-inlet-49460.git'
 
-const PORT = process.env.PORT || 3000
 //user creation
 export const postNewUser = (user) => {
     return (dispatch) => {
         dispatch(createUserRequest());
-        // app.use((req, res, next) => {
-        //     res.header('Access-Control-Allow-Origins', '*');
-        //     next();
-        // })
-
-        // app.get('/auth', (req, res) => {
-        //     request(
-        //         {url: `${API_ROOT}/auth`},
-        //         (error, response, body) => {
-        //             if (error || response.statusCode !== 200) {
-        //                 return res.status(500).json({type: 'error', message: error.message})
-        //             }
-
-        //             res.json(JSON.parse(body))
-        //         }
-        //     )
-        // })
-
-        // app.listen(PORT, (data) => {
-        //     localStorage.setItem("token", data.jwt)
-        //     dispatch(createUserSuccess(data))
-        // })
-        // fetch(`${PROXY_URL}` + `${API_ROOT}/users`, {
         fetch(`${API_ROOT}/users`, {
             method: "POST",
             headers: {
@@ -52,11 +25,14 @@ export const postNewUser = (user) => {
         })
         .then(res => res.json())
         .then(data => {
-            if (data.error) {
-                dispatch(createUserFailure(data.error, data.exception))
-            } else {
+            console.log(data)
+            if (data.user) {
+                alert ("Account creation successful!")
                 localStorage.setItem("token", data.jwt)
                 dispatch(createUserSuccess(data))
+            } else {
+                alert ("That username is unacceptable or has already been taken")
+                dispatch(createUserFailure(data.error, data.exception))
             }
         })
     }
@@ -78,6 +54,7 @@ export const createUserFailure = (error, exception) => {
 }
 
 export const createUserSuccess = (user) => {
+    console.log("create user success")
     return {
         type: CREATE_USER_SUCCESS,
         payload: user
@@ -88,29 +65,6 @@ export const createUserSuccess = (user) => {
 export const postLogin = (uservalue) => {
     return (dispatch) => {
         dispatch(signInRequest());
-        // app.use((req, res, next) => {
-        //     res.header('Access-Control-Allow-Origins', '*');
-        //     next();
-        // })
-
-        // app.get('/auth', (req, res) => {
-        //     request(
-        //         {url: `${API_ROOT}/auth`},
-        //         (error, response, body) => {
-        //             if (error || response.statusCode !== 200) {
-        //                 return res.status(500).json({type: 'error', message: error.message})
-        //             }
-
-        //             res.json(JSON.parse(body))
-        //         }
-        //     )
-        // })
-
-        // app.listen(PORT, (data) => {
-        //     localStorage.setItem("token", data.jwt)
-        //     dispatch(signInSuccess(data))
-        // })
-        // fetch(`${PROXY_URL}` + `${API_ROOT}/auth`, {
         fetch(`${API_ROOT}/auth`, {
             method: "POST",
             headers: {
@@ -120,9 +74,16 @@ export const postLogin = (uservalue) => {
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             if (data.error) {
+                console.log("in the if")
                 dispatch(signInFailure(data.error, data.exception))
+                alert ("Sorry, that didn't work.  Please sign up or try a different password.")
             } else {
+                if (data.message) {
+                    console.log("in the else, postlogi")
+                    alert ("Login successful!")
+                }
                 localStorage.setItem("token", data.jwt)
                 dispatch(signInSuccess(data))
             }

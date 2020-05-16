@@ -1,5 +1,4 @@
 import React from 'react'
-import {Redirect} from 'react-router-dom'
 
 const ReverseAuthHOC = WrappedComponent => {
     return class ReverseAuthHOC extends React.Component {
@@ -12,7 +11,9 @@ const ReverseAuthHOC = WrappedComponent => {
         }
 
         alertAndRedirect = () => {
-            return <Redirect to="/" />
+            console.log('redirecting')
+            // this.props.history.push("/")
+            // return <Redirect to="/" />
         }
 
         render() {
