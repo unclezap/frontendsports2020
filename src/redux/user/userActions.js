@@ -80,10 +80,6 @@ export const postLogin = (uservalue) => {
                 dispatch(signInFailure(data.error, data.exception))
                 alert ("Sorry, that didn't work.  Please sign up or try a different password.")
             } else {
-                if (data.message) {
-                    console.log("in the else, postlogi")
-                    alert ("Login successful!")
-                }
                 localStorage.setItem("token", data.jwt)
                 dispatch(signInSuccess(data))
             }
