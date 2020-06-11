@@ -9,8 +9,8 @@ import {
 } from './userTypes'
 
 
-// const API_ROOT = 'https://backendsports2020.herokuapp.com'
-const API_ROOT = 'http://localhost:3000'
+const API_ROOT = 'https://backendsports2020.herokuapp.com'
+// const API_ROOT = 'http://localhost:3000'
 
 //user creation
 export const postNewUser = (user) => {
@@ -25,7 +25,6 @@ export const postNewUser = (user) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             if (data.user) {
                 alert ("Account creation successful!")
                 localStorage.setItem("token", data.jwt)
@@ -54,7 +53,6 @@ export const createUserFailure = (error, exception) => {
 }
 
 export const createUserSuccess = (user) => {
-    console.log("create user success")
     return {
         type: CREATE_USER_SUCCESS,
         payload: user
@@ -74,9 +72,7 @@ export const postLogin = (uservalue) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             if (data.error) {
-                console.log("in the if")
                 dispatch(signInFailure(data.error, data.exception))
                 alert ("Sorry, that didn't work.  Please sign up or try a different password.")
             } else {

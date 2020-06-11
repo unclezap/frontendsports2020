@@ -21,19 +21,19 @@ class GanttChart2 extends React.Component {
 
   render() {
     return (
-      <div>
-        <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Click on a week below to chart it!</p>
-        <br></br>
-        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center"}}>Diamond points represent real-life game results, with blue diamonds representing wins and black ones representing losses.  The opacity of the diamond represents the strength of the win or the depth of the loss.</p>
-        <br></br>
-        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Colored blocks represent ESPN's predictions.  Green blocks represent completely accurate W/L predictions.  Red blocks indicated ESPN was not correct in their W/L projections, and yellow blocks represent times where they prevaricated, giving two separate W/L predictions.</p>
-        <br></br>
-        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>Arrows represent blowouts (margin >= 28 points), with the arrow pointing towards the game winner.</p>
-        <br></br>
-        <p style={{background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>You can create alternate timelines by clicking on the "Change the past" buttons, making a timeline more like the one ESPN thought would happen.</p>
-        <br></br>
-        <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}><b>{`In this timeline, ESPN got ${this.props.percentage}% of its predictions correct!`}</b></p>
-        <p style={{fontSize: "large", background: "white", display: "flex", alignItems: "center", justifyContent: "center"}}><b>{`The average error in predicted game margin was ${this.props.overallError} points.`}</b></p>
+      <div >
+        <p style={{fontSize: "large", background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px"}}>Click on a week below to chart it!</p>
+        {/* <br></br> */}
+        <p style={{background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "0px"}}>Diamond points represent real-life game results, with blue diamonds representing wins and black ones representing losses.  The opacity of the diamond represents the strength of the win or the depth of the loss.</p>
+        {/* <br></br> */}
+        <p style={{background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px"}}>Colored blocks represent ESPN's predictions.  Green blocks represent completely accurate W/L predictions.  Red blocks indicated ESPN was not correct in their W/L projections, and yellow blocks represent times where they prevaricated, giving two separate W/L predictions.</p>
+        {/* <br></br> */}
+        <p style={{background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px"}}>Arrows represent blowouts (margin >= 28 points), with the arrow pointing towards the game winner.</p>
+        {/* <br></br> */}
+        <p style={{background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px"}}>You can create alternate timelines by clicking on the "Change the past" buttons, making a timeline more like the one ESPN thought would happen.</p>
+        {/* <br></br> */}
+        <p style={{fontSize: "large", background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center"}}><b>{`In this timeline, ESPN got ${this.props.percentage}% of its predictions correct!`}</b></p>
+        <p style={{fontSize: "large", background: "CornflowerBlue", display: "flex", alignItems: "center", justifyContent: "center"}}><b>{`The average error in predicted game margin was ${this.props.overallError} points.`}</b></p>
         
       { this.props.loaded ? this.showChart() : null}
       </div>

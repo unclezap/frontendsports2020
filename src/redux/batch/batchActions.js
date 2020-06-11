@@ -7,8 +7,8 @@ import {
     FETCH_BATCHES_SUCCESS,
 } from './batchTypes'
 
-// const API_ROOT = 'https://backendsports2020.herokuapp.com'
-const API_ROOT = "http://localhost:3000"
+const API_ROOT = 'https://backendsports2020.herokuapp.com'
+// const API_ROOT = "http://localhost:3000"
 
 const token = () => localStorage.getItem("token")
 
@@ -67,6 +67,7 @@ export const postArticleSuccess = (article) => {
 
 //====== batches actions
 export const fetchBatches = () => {
+    console.log("fetching all")
     return (dispatch) => {
         dispatch(fetchBatchesRequest());
         fetch(`${API_ROOT}/batches`, {
@@ -75,6 +76,7 @@ export const fetchBatches = () => {
         })
         .then(res => res.json())
         .then(data => {
+            console.log("data", data)
             if (data.error) {
                 dispatch(fetchBatchesFailure(data.error, data.exception))
             } else {

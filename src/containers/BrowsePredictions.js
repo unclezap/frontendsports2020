@@ -10,7 +10,10 @@ import { clearAnalysis } from '../redux'
 
 class BrowsePredictions extends React.Component {
 
-    state = {chartDone: false}
+    state = {
+        chartDone: false,
+        spinner: Math.floor(Math.random()*2) + 1
+    }
 
     componentDidMount() {
         this.props.onClearAnalysis()
@@ -34,6 +37,14 @@ class BrowsePredictions extends React.Component {
                             loaded={this.props.loaded}
                         />
             })
+        } else {
+            return (
+                <div>
+                    <h2>{this.state.spinner === 1? <div style={{backgroundImage: this.props.style.loading1, height: "460px", width: "460px"}}/> : null }
+                    </h2>
+                    <h2>{this.state.spinner === 2? <div style={{backgroundImage: this.props.style.loading2, height: "460px", width: "460px"}}/> : null }</h2>
+                </div>
+            )
         }
     }
 

@@ -57,8 +57,6 @@ class AnalysisCard extends React.Component {
                 <Card 
                     style={{
                         backgroundImage: this.props.style.backgroundImage4,
-                        // width: '80rem',
-                        // height: this.state.height
                      }}
                      className="text-center"
                      

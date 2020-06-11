@@ -24,7 +24,7 @@ class NavBar extends React.Component {
     render () {
         return (
             <div className="navbar">
-                {this.props.style.backgroundImage1 == null ? <Button variant="outline-danger" onClick={this.handleReturn}>Return Gifs</Button> : <Button variant="outline-danger" onClick={this.handleRemove}>Remove Gifs</Button>}
+                {this.props.style.backgroundImage1 == null ? <Button variant="outline-danger" onClick={this.handleReturn}>Gif Storm Mode</Button> : <Button variant="outline-danger" onClick={this.handleRemove}>Kill Gifs</Button>}
                 <Link className="nav-link" to="/">Home</Link>
                 <Link className="nav-link" to='/new'>Individual Predictions</Link>
                 <Link className="nav-link" to='/old'>All Predictions</Link>
